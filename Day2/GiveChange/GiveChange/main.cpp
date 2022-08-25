@@ -27,6 +27,7 @@ int main() {
             std::cout << "please pay full price amount \n \n";
             continue;
         }
+        
         std::cout << "Change Due: " << changeDue << "\n";
     
         quarters = changeDue / 25;
