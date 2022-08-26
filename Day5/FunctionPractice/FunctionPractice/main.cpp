@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <ctime>
 
 using namespace std;
 
@@ -54,10 +55,8 @@ bool isPrime(int input_number){
     return true;
 }
 
-
-
 int main(int argc, const char * argv[]) {
-    /*
+    
     //initialize variables
     float right_angle_side_1;
     float right_angle_side_2;
@@ -89,17 +88,14 @@ int main(int argc, const char * argv[]) {
     // print x and y velocity
     std::cout << "Your x velocity is: " << x_velocity << "\nYour y velocity is: " << y_velocity << std::endl;
     
-    */
     
     
+    /* it would be difficult to do the speed/velocity task as a function because you need 2 outputs when a function will only get you one. you could output it as and array or you could use pointers and references to change the variable globally within the function. */
     
-    
-    
-    
-    
-    
-    
-    
+    std::time_t result = std::time(nullptr);
+    std::cout << std::asctime(std::localtime(&result))
+              << result << " seconds since the Epoch\n";
+    // this code snippit uses the time function, the asctime function and the localtime function.
     
     return 0;
 }
