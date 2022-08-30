@@ -12,7 +12,6 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     
     // initialize variables
-    
     int user_Input;
     string roman_Numeral;
     
@@ -22,14 +21,12 @@ int main(int argc, const char * argv[]) {
     roman_Numeral = "";
 
         //prompting user for decimal number
-        
         std::cout << "Enter decimal number: \n"; std::cin >> user_Input;
         
         // check for reasonable inputs
         if(user_Input > 0){
             
             // loop until input is zero, add letters to string as roman numerals rules apply
-            
             while(user_Input > 0){
                 
                 if(user_Input >= 1000){
@@ -78,7 +75,7 @@ int main(int argc, const char * argv[]) {
                 }
                 
                 else if(user_Input >= 4){
-                    roman_Numeral += "IX";
+                    roman_Numeral += "IV";
                     user_Input -= 4;
                 }
                 else if(user_Input >= 1){
