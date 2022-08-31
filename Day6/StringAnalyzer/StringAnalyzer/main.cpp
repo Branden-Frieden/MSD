@@ -45,6 +45,7 @@ int main(int argc, const char * argv[]) {
         average_vowels_per_word =   AverageVowelsPerWord(user_input);
         
         // print results
+        std::cout << "Analysis:\n";
         std::cout << "Number of words: " << word_num << std::endl;
         std::cout << "Number of sentences: " << sentences_num << std::endl;
         std::cout << "Number of vowels: " << vowels_num << std::endl;
