@@ -10,8 +10,6 @@
 #include <time.h>
 #include "CardFunctions.hpp"
 
-using namespace std;
-
 std::vector<Card> BuildDeck(){
     std::vector<Card> deck;
     
@@ -49,7 +47,6 @@ void DeckPrinter(const std::vector<Card>& deck){
 void DeckShuffle(std::vector<Card>& deck){
     int j = 0;
     Card temp;
-    std::srand((unsigned) time(0));
     for(int i = 0; i < deck.size(); i++){
         j = std::rand() % 52;
         temp = deck[i];
@@ -64,7 +61,6 @@ void DeckShuffle(std::vector<Card>& deck){
 std::vector<Card> DrawHand(const std::vector<Card>& deck){
     
     std::vector<Card> hand;
-    //DeckShuffle(deck);
     
     hand ={deck[0],deck[1],deck[2],deck[3],deck[4]};
     
@@ -139,6 +135,7 @@ bool isFullHouse (const std::vector<Card>& hand){
     
     
     for (int i = 0; i < hand.size(); i++){
+        count = 0;
         index1 = {};
         remaining_indexes = {0,1,2,3,4};
         for (int j = i+1; j < hand.size(); j++){
@@ -153,7 +150,7 @@ bool isFullHouse (const std::vector<Card>& hand){
             remaining_indexes.erase(remaining_indexes.begin()+(index1[0] - 1));
             remaining_indexes.erase(remaining_indexes.begin()+(index1[1] - 2));
             
-            if (hand[remaining_indexes[0]-1].rank == hand[remaining_indexes[1]-1].rank){
+            if (hand[remaining_indexes[0]].rank == hand[remaining_indexes[1]].rank){
                 return true;
             }
         }

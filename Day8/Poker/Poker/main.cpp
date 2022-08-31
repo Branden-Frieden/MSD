@@ -10,6 +10,7 @@
 
 int main(int argc, const char * argv[]) {
     
+    std::srand((unsigned) time(0));
     
     // initialize variables
     std::vector<Card> deck;
@@ -24,7 +25,7 @@ int main(int argc, const char * argv[]) {
     // populate deck
     deck = BuildDeck();
         
-    while(count < 1000000){
+    while(count < 2600000){
         
         DeckShuffle(deck);
         
@@ -32,6 +33,7 @@ int main(int argc, const char * argv[]) {
         //DeckPrinter(deck);
         
         hand = DrawHand(deck);
+        //hand = {Card{10,"spades"}, Card{10,"clubs"}, Card{11,"spades"},Card{11,"spades"},Card{10,"spades"}};
         
         if(isRoyalFlush(hand)){
             royalflushcount++;
