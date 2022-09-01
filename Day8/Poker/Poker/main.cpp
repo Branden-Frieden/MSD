@@ -5,6 +5,14 @@
 //  Created by Branden Frieden and Mack Tawa on 8/31/22.
 //
 
+// royal flush = 4/2,600,000 =      %0.00015385
+// straight flush = 37/2,600,000 =  %0.00142308
+// straight = 10153/2,600,000 =     %0.3905
+// flush = 5148/2,600,000 =         %0.198
+// full house = 3799/2,600,000 =    %0.14611538
+
+
+
 #include <iostream>
 #include "CardFunctions.hpp"
 
@@ -21,11 +29,12 @@ int main(int argc, const char * argv[]) {
     int straightflushcount = 0;
     int royalflushcount = 0;
     int fullhousecount = 0;
+    int runamount = 2600000;
         
     // populate deck
     deck = BuildDeck();
         
-    while(count < 2600000){
+    while(count < runamount){
         
         DeckShuffle(deck);
         
@@ -59,6 +68,10 @@ int main(int argc, const char * argv[]) {
     std::cout << "straights: " << straightcount << std::endl;
     std::cout << "flushes: " << flushcount << std::endl;
     std::cout << "full houses: " << fullhousecount << std::endl;
+    
+    double totalHands = royalflushcount + straightflushcount + straightcount + flushcount + fullhousecount;
+    std::cout << "chance of havin a hand with one of the above: %" << (totalHands/runamount) * 100 << std::endl;
+    
     
     return 0;
 }
