@@ -29,7 +29,7 @@ int main(int argc, const char * argv[]) {
     int straightflushcount = 0;
     int royalflushcount = 0;
     int fullhousecount = 0;
-    int runamount = 2600000;
+    int runamount = 1000000;
         
     // populate deck
     deck = BuildDeck();
@@ -63,11 +63,11 @@ int main(int argc, const char * argv[]) {
         count++;
 }
     
-    std::cout << "royal flushes: " << royalflushcount << std::endl;
-    std::cout << "straight flushes: " << straightflushcount << std::endl;
-    std::cout << "straights: " << straightcount << std::endl;
-    std::cout << "flushes: " << flushcount << std::endl;
-    std::cout << "full houses: " << fullhousecount << std::endl;
+    std::cout << "royal flushes: %" << 100 * (double)royalflushcount/(double)runamount << std::endl;
+    std::cout << "straight flushes: %" << 100 * (double)straightflushcount/(double)runamount << std::endl;
+    std::cout << "straights: %" << 100 * (double)straightcount/(double)runamount << std::endl;
+    std::cout << "flushes: %" << 100 * (double)flushcount/(double)runamount << std::endl;
+    std::cout << "full houses: %" << 100 * (double)fullhousecount/(double)runamount << std::endl;
     
     double totalHands = royalflushcount + straightflushcount + straightcount + flushcount + fullhousecount;
     std::cout << "chance of havin a hand with one of the above: %" << (totalHands/runamount) * 100 << std::endl;
