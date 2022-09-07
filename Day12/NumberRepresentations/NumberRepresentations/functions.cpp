@@ -29,7 +29,7 @@ void fileReader(std::string file_name){
     
     while( myStream >> c){
         std::cout << c << std::endl;
-        if(c >=0){
+        if(c >= 0 && c <= 127){
             ascii_counter++;
         }
         else{
