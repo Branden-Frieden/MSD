@@ -1,0 +1,95 @@
+Status check 2
+
+
+Part 1:
+
+Int user_input;
+Int total;
+
+For(int i = 0; i < 4; i ++){
+	std::cout << “please enter a number from 1 to 10, or -99 to quit”;
+	std::cin >> user_input;
+	
+
+	if(user_input == -99){
+		break;
+	}
+	if(user_input >=1 && user_input <=10){
+		total += user_input;
+	}
+}
+
+
+
+
+Part 2:
+
+clang++ -c my_lib.cpp main.cpp
+clang++ -o myProg my_lib.o main.o
+
+Part 3:
+
+an array is a pointer to the memory locations of certain variables of a certain type, while a structure is a variable with sub variables of different types stored inside of it.
+
+
+a vector has been built with functions and can change its own size while an array is stuck to the size assigned to it. Vectors can pass by value while arrays will always be pointers
+
+B)
+
+Struct Dog{
+
+	std::String name;
+	int age;
+	bool vaccinated;
+};
+
+Dog{“murphy”, 6, true);
+
+C) std::vector<Dog> Dogs;
+
+
+
+
+
+
+
+Part 4:
+
+Bool isVowel(char c){
+	tolower(c);
+	return (c == ‘a’ || c ==‘e’ || c == ‘i ’ || c == ‘o’ || c == ‘u’);
+}
+
+Int NumVowels(const std::string& s){
+	int vowels = 0;
+	for(int i = 0; i < s.length(); I++){
+		if(isVowel(s[I])){
+			vowels++;
+		}
+	}
+	return vowels;
+}
+
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+
+Int main(){
+
+	std::string s;
+	std::vector<string> BookVector;
+	int total_vowels = 0;
+
+	std::ifstream myStream(“star_wars.txt”)
+	if(myStream.fail()){
+		exit(1)
+	}
+	
+	while( myStream >> s){
+		BookVector.push_back(s);
+		total_vowels += NumVowels(s);
+	}
+
+	std::cout << “total vowels is: “ << total_vowels;
