@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]) {
     
     while(i <= 4 ){
         
-        std::cout << "please enter a number from 1 to 10, type -99 to quit";
+        std::cout << "please enter a number from 1 to 10, type -99 to quit\n";
         std::cin >> user_input;
         
         if(user_input == -99){
@@ -26,9 +26,10 @@ int main(int argc, const char * argv[]) {
             i++;
         }
         else{
-            std::cout >> "invalid input \n";
+            std::cout << "invalid input \n";
         }
     
 }
+    std::cout << "total: " << total << std::endl;
     return 0;
 }
