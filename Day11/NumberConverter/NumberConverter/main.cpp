@@ -18,10 +18,10 @@ int main(int argc, const char * argv[]) {
     if(intToDecimalString(-1255) != "-1255"){
         std::cout << "intToDecimalString() fail test 2\n";
     }
-    if(intToBinaryString(15) != "01111"){
+    if(intToBinaryString(15) != "1111"){
         std::cout << "intToBinaryString() fail test 1\n";
     }
-    if(intToBinaryString(-34) != "1100010"){
+    if(intToBinaryString(-34) != "-100010"){
         std::cout << "intToBinaryString() fail test 2\n";
     }
     if(intToHexadecimalString(15) != "0xF"){

@@ -38,13 +38,12 @@ int stringToInt(std::string input, const int& base){
 
 std::string intToDecimalString(int input){
     std::string output;
-    int i = 0;
     int temp = 0;
     bool negative = false;
     
     if(input < 0){
         negative = true;
-        input *= -1;
+        input = -input;
     }
     
     while(input > 0){
@@ -54,7 +53,6 @@ std::string intToDecimalString(int input){
         
         input /= 10;
 
-        i++;
     }
     
     if(negative){
@@ -87,12 +85,9 @@ std::string intToBinaryString(int input){
     }
     
     if(negative){
-        output.insert(0, 1, '1');
+        output.insert(0, 1, '-');
     }
-    else
-    {
-        output.insert(0, 1, '0');
-    }
+
     
     return output;
 }
