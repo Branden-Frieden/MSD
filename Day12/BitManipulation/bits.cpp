@@ -173,33 +173,22 @@ uint32_t SetByte( uint32_t input, uint8_t value, int b )
 int Negate( int input )
 {
     
-    int mask = 1;
+    int mask = 0xFFFFFFFF;
+    int mask2 = 1;
     int output = ~input;
-    int count = 0;
     
     for(int i = 0; i < (sizeof(output) * 8); i++){
         if(GetBit(output, i)){
-            count++;
+            mask <<= 1;
+            mask2 <<= 1;
         }
         else{
             break;
         }
     }
     
-    if(count == 32){
-        mask <<= 31;
-        mask <<=1;
-        output >>= 31;
-        output >>= 1;
-        output <<= 31;
-        output <<= 1;
-    }
-    else{
-        mask <<= count;
-        output >>= count;
-        output <<= count;
-    }
-    output = output | mask;
+    output = output & mask;
+    output = output | mask2;
   return output;
 }
 
@@ -211,33 +200,23 @@ int Negate( int input )
  * This function should return x + 1 but should only make use of bitwise operators and == or !=
 */
 int Increment( uint32_t x ){
-    uint32_t mask = 1;
-    int count = 0;
+    uint32_t mask = 0xFFFFFFFF;
+    uint32_t mask2 = 1;
     
+    // loop through to find the first '0' bit, move the masks over;
     for(int i = 0; i < (sizeof(x) * 8); i++){
         if(GetBit(x, i)){
-            count++;
+            mask <<= 1;
+            mask2 <<= 1;
         }
         else{
             break;
         }
     }
     
-    
-    if(count == 32){
-        mask <<= 31;
-        mask <<=1;
-        x >>= 31;
-        x >>= 1;
-        x <<= 31;
-        x <<= 1;
-    }
-    else{
-        mask <<= count;
-        x >>= count;
-        x <<= count;
-    }
-    x = x | mask;
+    // & with mask to turn all the ones up to the first 0 to 0, then add one with | at the first '0' position
+    x = x & mask;
+    x = x | mask2;
     
   return x;
 }
