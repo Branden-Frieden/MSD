@@ -21,7 +21,7 @@ MyVec::MyVec(size_t initialCapacity){
 }
 
 void MyVec::growVector(){
-    double* temp_data = new double[capacity_];
+    double* temp_data = new double[2 * capacity_];
     for(size_t i = 0; i < size_; i++){
         temp_data[i] = data[i];
     }

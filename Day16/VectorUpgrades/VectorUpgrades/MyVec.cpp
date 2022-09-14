@@ -20,7 +20,7 @@ MyVec::MyVec(size_t initialCapacity){
 }
 
 void MyVec::growVector(){
-    double* temp_data = new double[capacity_];
+    double* temp_data = new double[2 * capacity_];
     for(size_t i = 0; i < size_; i++){
         temp_data[i] = data[i];
     }
@@ -79,7 +79,7 @@ void MyVec::popBack(){
     size_--;
 }
 
-void MyVec::freeVector(){
+MyVec::~MyVec(){
     delete data;
     size_ = 0;
     capacity_ = 0;
@@ -91,6 +91,31 @@ size_t MyVec::getSize(){
 
 size_t MyVec::getCapacity(){
     return capacity_;
+}
+
+MyVec & MyVec::operator=( const MyVec & rhs){
+    if(this == &rhs){
+        return *this;
+    }
+    capacity_ = rhs.capacity_;
+    size_ = rhs.size_;
+    for( size_t i = 0; i < size_; i++){
+        data[i] = rhs.data[i];
+    }
+    return *this;
+}
+
+MyVec::MyVec( const MyVec& original ){
+    capacity_ = original.capacity_;
+    size_ = original.size_;
+    data = new double[capacity_];
+    for( size_t i = 0; i < size_; i++){
+        data[i] = original.data[ i ];
+    }
+}
+
+double& MyVec::operator[](int index){
+    return this->data[index];
 }
 
 void MyVecTests(){
@@ -149,14 +174,10 @@ void MyVecTests(){
         std::cout << "set error - test 2\n";
     }
     
+    MyVec vec3(1);
+    vec3 = vec2;
     
-    vec1.freeVector();
-    vec2.freeVector();
-    
-    if(vec1.getCapacity() != 0){
-        std::cout << "free vector error - test 1\n";
-    }
-    if(vec2.getCapacity() != 0){
-        std::cout << "free vector error - test 1\n";
+    if(vec3.get(5) - 6.6 > .001){
+        std::cout << "= error - test 1\n";
     }
 }

@@ -18,6 +18,8 @@ class MyVec{
 public:
     MyVec(size_t initialCapacity);
     
+    MyVec( const MyVec& original );
+    
     void growVector();
     
     double get(int index) const;
@@ -28,11 +30,16 @@ public:
     
     void popBack();
     
-    void freeVector();
+    ~MyVec();
     
     size_t getSize();
     
     size_t getCapacity();
+    
+    MyVec & operator=( const MyVec & rhs);
+    
+    double& operator[](int index);
+    
 };
 
 void MyVecTests();
