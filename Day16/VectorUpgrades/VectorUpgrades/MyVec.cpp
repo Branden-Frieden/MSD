@@ -6,8 +6,7 @@
 //
 
 #include "MyVec.hpp"
-
-
+#include <iostream>
 
 MyVec::MyVec(size_t initialCapacity){
     int test;
@@ -92,4 +91,72 @@ size_t MyVec::getSize(){
 
 size_t MyVec::getCapacity(){
     return capacity_;
+}
+
+void MyVecTests(){
+    MyVec vec1(5);
+    MyVec vec2(-3);
+    
+    if(vec1.getCapacity() != 5){
+        std::cout << "make vector error - test 1\n";
+    }
+    if(vec2.getCapacity() != 1){
+        std::cout << "make vector error - test 1\n";
+    }
+    
+    vec1.growVector();
+    vec2.growVector();
+    
+    if(vec1.getCapacity() != 10){
+        std::cout << "grow vector error - test 1\n";
+    }
+    if(vec2.getCapacity() != 2){
+        std::cout << "grow vector error - test 1\n";
+    }
+    
+    vec1.pushBack(1.2);
+    vec1.pushBack(1.6);
+    vec1.pushBack(1.9);
+    vec2.pushBack(3.4);
+    vec2.pushBack(3.6);
+    vec2.pushBack(8.7);
+    
+    if( vec1.get(2) - 1.9 > .001){
+        std::cout << "get or pushback error - test 1\n";
+    }
+    
+    if(vec2.get(2) - 8.7 > .001){
+        std::cout << "get or pushback error - test 2\n";
+    }
+    
+    vec1.popBack();
+    vec2.popBack();
+    
+    if(vec1.get((int)vec1.getSize()-1) - 1.6 > .001){
+        std::cout << "popback error - test 1\n";
+    }
+    if(vec2.get((int)vec2.getSize()-1) - 3.6 > .001){
+        std::cout << "popback error - test 2\n";
+    }
+    
+    vec1.set(8, 5.5);
+    vec2.set(5, 6.6);
+    
+    if(vec1.get(8) - 5.5 > .001){
+        std::cout << "set error - test 1\n";
+    }
+    if(vec2.get(5) - 6.6 > .001){
+        std::cout << "set error - test 2\n";
+    }
+    
+    
+    vec1.freeVector();
+    vec2.freeVector();
+    
+    if(vec1.getCapacity() != 0){
+        std::cout << "free vector error - test 1\n";
+    }
+    if(vec2.getCapacity() != 0){
+        std::cout << "free vector error - test 1\n";
+    }
 }

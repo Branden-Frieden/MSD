@@ -58,6 +58,15 @@ int main(int argc, const char * argv[]) {
         std::cout << "popback error - test 2\n";
     }
     
+    vec1.set(8, 5.5);
+    vec2.set(5, 6.6);
+    
+    if(vec1.get(8) - 5.5 > .001){
+        std::cout << "set error - test 1\n";
+    }
+    if(vec2.get(5) - 6.6 > .001){
+        std::cout << "set error - test 2\n";
+    }
     
     vec1.freeVector();
     vec2.freeVector();
