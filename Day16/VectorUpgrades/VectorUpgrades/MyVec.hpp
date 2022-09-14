@@ -40,6 +40,20 @@ public:
     
     double& operator[](int index);
     
+    const double& operator[](int index) const;
+    
+    bool operator==( const MyVec & rhs) const;
+    
+    bool operator!=( const MyVec & rhs) const;
+    
+    bool operator<( const MyVec & rhs) const;
+    
+    bool operator>( const MyVec & rhs) const;
+    
+    bool operator>=( const MyVec & rhs) const;
+    
+    bool operator<=( const MyVec & rhs) const;
+    
 };
 
 void MyVecTests();

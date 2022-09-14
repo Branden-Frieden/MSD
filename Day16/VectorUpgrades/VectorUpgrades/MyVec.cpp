@@ -118,6 +118,67 @@ double& MyVec::operator[](int index){
     return this->data[index];
 }
 
+const double& MyVec::operator[](int index) const{
+    return this->data[index];
+}
+
+bool MyVec::operator==( const MyVec & rhs) const{
+    for(size_t i = 0; i < size_; i++){
+        if(data[i] != rhs.data[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+bool MyVec::operator!=( const MyVec & rhs) const{
+    return !(*this == rhs);
+}
+
+bool MyVec::operator<( const MyVec & rhs) const{
+    for(size_t i = 0; i < size_; i++){
+        if(data[i] < rhs.data[i]){
+            return true;
+        }
+        else if(data[i] > rhs.data[i]){
+            return false;
+        }
+    }
+    return false;
+}
+
+bool MyVec::operator>( const MyVec & rhs) const{
+    for(size_t i = 0; i < size_; i++){
+        if(data[i] > rhs.data[i]){
+            return true;
+        }
+        else if(data[i] < rhs.data[i]){
+            return false;
+        }
+    }
+    return false;
+}
+
+bool MyVec::operator>=( const MyVec & rhs) const{
+    for(size_t i = 0; i < size_; i++){
+        if(data[i] < rhs.data[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+bool MyVec::operator<=( const MyVec & rhs) const{
+    for(size_t i = 0; i < size_; i++){
+        if(data[i] > rhs.data[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+
+
 void MyVecTests(){
     MyVec vec1(5);
     MyVec vec2(-3);
@@ -177,7 +238,54 @@ void MyVecTests(){
     MyVec vec3(1);
     vec3 = vec2;
     
+    if(!(vec3 == vec2)){
+        std::cout << "== error - test 1\n";
+    }
+    if( vec3 != vec2){
+        std::cout << "!= error test 1\n";
+    }
+    
     if(vec3.get(5) - 6.6 > .001){
         std::cout << "= error - test 1\n";
     }
+    if(vec3[5] - 6.6 > .001){
+        std::cout << "[ ] error - test 1\n";
+    }
+    
+    vec3[3] = 3.3;
+    
+    if(vec3[3] - 3.3 > .001){
+        std::cout << "[ ] error - test 1\n";
+    }
+    
+    if(vec3 < vec2){
+        std::cout << "< error - test 1\n";
+    }
+    if(!(vec3 > vec2)){
+        std::cout << "> error - test 1\n";
+    }
+    
+    if(!(vec3 >= vec2)){
+        std::cout << ">= error - test 1\n";
+    }
+    
+    if(vec3 <= vec2){
+        std::cout << "<= error - test 1\n";
+    }
+    vec3[3] = 0.0;
+    if(vec3 < vec2){
+        std::cout << "< error - test 2\n";
+    }
+    if(vec3 > vec2){
+        std::cout << "> error - test 2\n";
+    }
+    
+    if(!(vec3 >= vec2)){
+        std::cout << ">= error - test 2\n";
+    }
+    
+    if(!(vec3 <= vec2)){
+        std::cout << "<= error - test 2\n";
+    }
+    
 }
