@@ -75,8 +75,8 @@ void MyVec::pushBack(double data_insert){
 }
 
 void MyVec::popBack(){
-    data[size_] = 0.0;
     size_--;
+    data[size_] = 0.0;
 }
 
 MyVec::~MyVec(){
@@ -85,11 +85,11 @@ MyVec::~MyVec(){
     capacity_ = 0;
 }
 
-size_t MyVec::getSize(){
+size_t MyVec::getSize() const{
     return size_;
 }
 
-size_t MyVec::getCapacity(){
+size_t MyVec::getCapacity() const{
     return capacity_;
 }
 
@@ -218,7 +218,7 @@ void MyVecTests(){
     vec1.popBack();
     vec2.popBack();
     
-    if(vec1.get((int)vec1.getSize()-1) - 1.6 > .001){
+    if(vec1[(int)vec1.getSize()] - 0.0 > .001){
         std::cout << "popback error - test 1\n";
     }
     if(vec2.get((int)vec2.getSize()-1) - 3.6 > .001){

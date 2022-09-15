@@ -18,6 +18,8 @@ class MyVec{
 public:
     MyVec(size_t initialCapacity);
     
+    MyVec( const MyVec& original );
+    
     void growVector();
     
     double get(int index) const;
@@ -28,14 +30,33 @@ public:
     
     void popBack();
     
-    void freeVector();
+    ~MyVec();
     
-    size_t getSize();
+    size_t getSize() const;
     
-    size_t getCapacity();
+    size_t getCapacity() const;
+    
+    MyVec & operator=( const MyVec & rhs);
+    
+    double& operator[](int index);
+    
+    const double& operator[](int index) const;
+    
+    bool operator==( const MyVec & rhs) const;
+    
+    bool operator!=( const MyVec & rhs) const;
+    
+    bool operator<( const MyVec & rhs) const;
+    
+    bool operator>( const MyVec & rhs) const;
+    
+    bool operator>=( const MyVec & rhs) const;
+    
+    bool operator<=( const MyVec & rhs) const;
+    
 };
 
-
+void MyVecTests();
 
 
 #endif /* MyVec_hpp */

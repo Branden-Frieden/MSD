@@ -32,9 +32,9 @@ public:
     
     ~MyVec();
     
-    size_t getSize();
+    size_t getSize() const;
     
-    size_t getCapacity();
+    size_t getCapacity() const;
     
     MyVec & operator=( const MyVec & rhs);
     
