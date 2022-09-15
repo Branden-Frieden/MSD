@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D9F350A28D38E5B00A49FE1 /* MyVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D9F350928D38E5B00A49FE1 /* MyVec.cpp */; };
 		2DD23BFE28D0F68100D569BE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DD23BFD28D0F68100D569BE /* main.cpp */; };
-		2DD23C0628D0F6BB00D569BE /* MyVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DD23C0428D0F6BB00D569BE /* MyVector.cpp */; };
-		2DD23C0928D104AB00D569BE /* MyVec.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DD23C0728D104AB00D569BE /* MyVec.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,12 +24,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D9F350828D38E5B00A49FE1 /* MyVec.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MyVec.hpp; sourceTree = "<group>"; };
+		2D9F350928D38E5B00A49FE1 /* MyVec.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyVec.cpp; sourceTree = "<group>"; };
 		2DD23BFA28D0F68100D569BE /* DiyVector */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DiyVector; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DD23BFD28D0F68100D569BE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2DD23C0428D0F6BB00D569BE /* MyVector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MyVector.cpp; sourceTree = "<group>"; };
-		2DD23C0528D0F6BB00D569BE /* MyVector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MyVector.hpp; sourceTree = "<group>"; };
-		2DD23C0728D104AB00D569BE /* MyVec.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MyVec.cpp; sourceTree = SOURCE_ROOT; };
-		2DD23C0828D104AB00D569BE /* MyVec.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MyVec.hpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,11 +60,9 @@
 		2DD23BFC28D0F68100D569BE /* DiyVector */ = {
 			isa = PBXGroup;
 			children = (
-				2DD23C0728D104AB00D569BE /* MyVec.cpp */,
-				2DD23C0828D104AB00D569BE /* MyVec.hpp */,
+				2D9F350928D38E5B00A49FE1 /* MyVec.cpp */,
 				2DD23BFD28D0F68100D569BE /* main.cpp */,
-				2DD23C0428D0F6BB00D569BE /* MyVector.cpp */,
-				2DD23C0528D0F6BB00D569BE /* MyVector.hpp */,
+				2D9F350828D38E5B00A49FE1 /* MyVec.hpp */,
 			);
 			path = DiyVector;
 			sourceTree = "<group>";
@@ -99,7 +94,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					2DD23BF928D0F68100D569BE = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -129,8 +124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DD23C0928D104AB00D569BE /* MyVec.cpp in Sources */,
-				2DD23C0628D0F6BB00D569BE /* MyVector.cpp in Sources */,
+				2D9F350A28D38E5B00A49FE1 /* MyVec.cpp in Sources */,
 				2DD23BFE28D0F68100D569BE /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -171,6 +165,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -229,6 +224,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -250,7 +246,9 @@
 		2DD23C0228D0F68100D569BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -258,7 +256,9 @@
 		2DD23C0328D0F68100D569BE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -9,10 +9,10 @@
 #define MyVec_hpp
 
 #include <stdio.h>
-
+template<typename T>
 class MyVec{
   
-    double* data;
+    T* data;
     size_t capacity_,size_;
     
 public:
@@ -22,11 +22,11 @@ public:
     
     void growVector();
     
-    double get(int index) const;
+    T get(int index) const;
     
-    void set(int index, double newValue);
+    void set(int index, T newValue);
     
-    void pushBack(double data_insert);
+    void pushBack(T data_insert);
     
     void popBack();
     
@@ -36,11 +36,11 @@ public:
     
     size_t getCapacity() const;
     
-    MyVec & operator=( const MyVec & rhs);
+    MyVec & operator=( const MyVec<T> & rhs);
     
-    double& operator[](int index);
+    T& operator[](int index);
     
-    const double& operator[](int index) const;
+    const T& operator[](int index) const;
     
     bool operator==( const MyVec & rhs) const;
     

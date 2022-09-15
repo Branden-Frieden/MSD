@@ -7,8 +7,9 @@
 
 #include "MyVec.hpp"
 #include <iostream>
+template<typename T>
 
-MyVec::MyVec(size_t initialCapacity){
+MyVec<T>::MyVec(size_t initialCapacity){
     int test;
     test = (int)initialCapacity;
     if(test <= 0){
@@ -16,11 +17,12 @@ MyVec::MyVec(size_t initialCapacity){
     }
     capacity_ = initialCapacity;
     size_ = 0;
-    data = new double[initialCapacity];
+    data = new T[initialCapacity];
 }
 
-void MyVec::growVector(){
-    double* temp_data = new double[2 * capacity_];
+template<typename T>
+void MyVec<T>::growVector(){
+    T* temp_data = new T[2 * capacity_];
     for(size_t i = 0; i < size_; i++){
         temp_data[i] = data[i];
     }
@@ -33,18 +35,18 @@ void MyVec::growVector(){
     temp_data = nullptr;
 }
 
-
-
-double MyVec::get(int index) const{
+template<typename T>
+T MyVec<T>::get(int index) const{
     return data[index];
 }
 
-void MyVec::set(int index, double newValue){
+template<typename T>
+void MyVec<T>::set(int index, T newValue){
     if(index < 0){
         return;
     }
     if(index >= capacity_){
-        double* temp_data = new double[index * 2];
+        T* temp_data = new T[index * 2];
         for(size_t i = 0; i < size_; i++){
             temp_data[i] = data[i];
         }
@@ -65,7 +67,8 @@ void MyVec::set(int index, double newValue){
     }
 }
 
-void MyVec::pushBack(double data_insert){
+template<typename T>
+void MyVec<T>::pushBack(T data_insert){
     if(size_ == capacity_){
         growVector();
     }
@@ -74,26 +77,31 @@ void MyVec::pushBack(double data_insert){
     size_++;
 }
 
-void MyVec::popBack(){
+template<typename T>
+void MyVec<T>::popBack(){
     size_--;
     data[size_] = 0.0;
 }
 
-MyVec::~MyVec(){
+template<typename T>
+MyVec<T>::~MyVec(){
     delete data;
     size_ = 0;
     capacity_ = 0;
 }
 
-size_t MyVec::getSize() const{
+template<typename T>
+size_t MyVec<T>::getSize() const{
     return size_;
 }
 
-size_t MyVec::getCapacity() const{
+template<typename T>
+size_t MyVec<T>::getCapacity() const{
     return capacity_;
 }
 
-MyVec & MyVec::operator=( const MyVec & rhs){
+template<typename T>
+MyVec<T> & MyVec<T>::operator=( const MyVec & rhs){
     if(this == &rhs){
         return *this;
     }
@@ -105,24 +113,28 @@ MyVec & MyVec::operator=( const MyVec & rhs){
     return *this;
 }
 
-MyVec::MyVec( const MyVec& original ){
+template<typename T>
+MyVec<T>::MyVec( const MyVec& original ){
     capacity_ = original.capacity_;
     size_ = original.size_;
-    data = new double[capacity_];
+    data = new T[capacity_];
     for( size_t i = 0; i < size_; i++){
         data[i] = original.data[ i ];
     }
 }
 
-double& MyVec::operator[](int index){
+template<typename T>
+T& MyVec<T>::operator[](int index){
     return this->data[index];
 }
 
-const double& MyVec::operator[](int index) const{
+template<typename T>
+const T& MyVec<T>::operator[](int index) const{
     return this->data[index];
 }
 
-bool MyVec::operator==( const MyVec & rhs) const{
+template<typename T>
+bool MyVec<T>::operator==( const MyVec & rhs) const{
     for(size_t i = 0; i < size_; i++){
         if(data[i] != rhs.data[i]){
             return false;
@@ -131,11 +143,13 @@ bool MyVec::operator==( const MyVec & rhs) const{
     return true;
 }
 
-bool MyVec::operator!=( const MyVec & rhs) const{
+template<typename T>
+bool MyVec<T>::operator!=( const MyVec & rhs) const{
     return !(*this == rhs);
 }
 
-bool MyVec::operator<( const MyVec & rhs) const{
+template<typename T>
+bool MyVec<T>::operator<( const MyVec & rhs) const{
     for(size_t i = 0; i < size_; i++){
         if(data[i] < rhs.data[i]){
             return true;
@@ -147,7 +161,8 @@ bool MyVec::operator<( const MyVec & rhs) const{
     return false;
 }
 
-bool MyVec::operator>( const MyVec & rhs) const{
+template<typename T>
+bool MyVec<T>::operator>( const MyVec & rhs) const{
     for(size_t i = 0; i < size_; i++){
         if(data[i] > rhs.data[i]){
             return true;
@@ -159,7 +174,8 @@ bool MyVec::operator>( const MyVec & rhs) const{
     return false;
 }
 
-bool MyVec::operator>=( const MyVec & rhs) const{
+template<typename T>
+bool MyVec<T>::operator>=( const MyVec & rhs) const{
     for(size_t i = 0; i < size_; i++){
         if(data[i] < rhs.data[i]){
             return false;
@@ -168,7 +184,8 @@ bool MyVec::operator>=( const MyVec & rhs) const{
     return true;
 }
 
-bool MyVec::operator<=( const MyVec & rhs) const{
+template<typename T>
+bool MyVec<T>::operator<=( const MyVec & rhs) const{
     for(size_t i = 0; i < size_; i++){
         if(data[i] > rhs.data[i]){
             return false;
@@ -180,8 +197,8 @@ bool MyVec::operator<=( const MyVec & rhs) const{
 
 
 void MyVecTests(){
-    MyVec vec1(5);
-    MyVec vec2(-3);
+    MyVec<double> vec1(5);
+    MyVec<double> vec2(-3);
     
     if(vec1.getCapacity() != 5){
         std::cout << "make vector error - test 1\n";
@@ -235,7 +252,7 @@ void MyVecTests(){
         std::cout << "set error - test 2\n";
     }
     
-    MyVec vec3(1);
+    MyVec<double> vec3(1);
     vec3 = vec2;
     
     if(!(vec3 == vec2)){
@@ -287,5 +304,4 @@ void MyVecTests(){
     if(!(vec3 <= vec2)){
         std::cout << "<= error - test 2\n";
     }
-    
 }
