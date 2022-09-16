@@ -11,6 +11,7 @@
 int main(int argc, const char * argv[]) {
     
     MyVecTests();
+    MyVecTests2();
     
     return 0;
 }

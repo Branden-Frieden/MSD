@@ -246,5 +246,7 @@ bool MyVec<T>::operator<=( const MyVec & rhs) const{
 
 void MyVecTests();
 
+void MyVecTests2();
+
 
 #endif /* MyVec_hpp */
