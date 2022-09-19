@@ -1,0 +1,3 @@
+/Users/brandenfrieden/MSD/CS6010/myGithubRepo/Day18/src/CMakeFiles/testSFML.dir
+/Users/brandenfrieden/MSD/CS6010/myGithubRepo/Day18/src/CMakeFiles/ALL_BUILD.dir
+/Users/brandenfrieden/MSD/CS6010/myGithubRepo/Day18/src/CMakeFiles/ZERO_CHECK.dir
