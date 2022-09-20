@@ -54,6 +54,11 @@ public:
     
     bool operator<=( const MyVec & rhs) const;
     
+    T* begin();
+    T* end();
+    const T* begin() const;
+    const T* end() const;
+    
 };
 
 template<typename T>
@@ -243,10 +248,32 @@ bool MyVec<T>::operator<=( const MyVec & rhs) const{
     return true;
 }
 
+template<typename T>
+T* MyVec<T>::begin(){
+    return data;
+}
+
+template<typename T>
+T* MyVec<T>::end(){
+    return data + size_;
+}
+
+template<typename T>
+const T* MyVec<T>::begin() const{
+    return data;
+}
+
+template<typename T>
+const T* MyVec<T>::end() const{
+    return data + size_;
+}
 
 void MyVecTests();
 
 void MyVecTests2();
 
+void MyVecTests3();
+
+bool isEven(int val);
 
 #endif /* MyVec_hpp */
