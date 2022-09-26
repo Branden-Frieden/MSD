@@ -20,9 +20,10 @@ int main()
         // clear the window with black color
         window.clear(sf::Color::Black);
 
-        sf::CircleShape shape(50.f);
+        sf::CircleShape shape(50,3);
+        shape.setPosition(0, 0);
         sf::RectangleShape shape2(sf::Vector2f(100, 50));
-        shape2.setPosition(200, 100);
+        shape2.setPosition(100, 100);
 
 // set the shape color to green
         shape.setFillColor(sf::Color(100, 250, 50));
