@@ -83,8 +83,9 @@ public class Fraction {
     }
 
     public void reduce(){
-        numerator /= this.GCD();
-        denominator /= this.GCD();
+        long gcd = this.GCD()
+        numerator /= gcd;
+        denominator /= gcd;
     }
 
     public static void main(String[] args) {
