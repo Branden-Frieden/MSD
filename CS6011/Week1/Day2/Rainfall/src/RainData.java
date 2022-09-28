@@ -61,7 +61,7 @@ public class RainData {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        RainData atlanta = new RainData("Macon.txt");
+        RainData atlanta = new RainData("Atlanta.txt");
         atlanta.OverallAverage();
         atlanta.averageByMonth();
     }

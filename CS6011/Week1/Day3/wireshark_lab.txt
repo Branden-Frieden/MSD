@@ -1,0 +1,20 @@
+What data is being sent to the other computer?
+	we are sending 64Bytes including, the version, header length, checksum, flags, 	identification, protocols 
+	source and destination addresses and 48 bytes of data. The addresses are our computers addresses.
+	This matches the example in class for the packet headers
+Ping time:
+	the ping time between out computers was anywhere from 10 to 100 ms but usually around 10 ms
+	for google, the ping time was consistently around 33 ms
+	for the louve, the ping was around 150ms,
+	this shows us that the farther away a network is, the longer the ping
+HTTP
+	4 packets were sent to access the example site, this is less than I expected, but for how simple the site is I guess it makes sense
+	the data is encrypted so you can't know what was sent, but it should be a bunch of the usual header stuff + the html data for the site
+Curl
+	used for sending/receiving data to/from a server using protocols
+	this time I got the HTML file layer out in the terminal and the results in wireShark are not encrypted so you can see the HTML in there too.
+	
+
+	GitHub automatically changed HTTP to HTTPS
+	you can't understand the wireshark output because its incrypted
+	the first few messages aren't encrypted because I typed in HTTP and not HTTPS, but GitHub switched me over to encryption pretty quick
