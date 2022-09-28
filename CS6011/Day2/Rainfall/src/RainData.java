@@ -4,11 +4,15 @@ import java.io.FileOutputStream;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class RainData {
 
     ArrayList<String> Months = new ArrayList<String>();
+    ArrayList<String> setMonths = new ArrayList<>(Arrays.asList("January",
+            "February", "March", "April", "May", "June", "July", "August",
+            "September", "October", "November", "December"));
     ArrayList<Integer> Years = new ArrayList<Integer>();
     ArrayList<Double> Rainfall = new ArrayList<Double>();
     PrintWriter pw = new PrintWriter( new FileOutputStream( "rainfall_data.txt") );
@@ -46,18 +50,18 @@ public class RainData {
             sum = 0;
             data_count = 0;
             for(int j = 0; j < Rainfall.size(); j++){
-                if(Months.get(j).equals(Months.get(i))){
+                if(Months.get(j).equals(setMonths.get(i))){
                     sum += Rainfall.get(j);
                     data_count++;
                 }
             }
-            pw.printf("The average rainfall amount for %s is %.2f inches.%n",Months.get(i), sum/data_count);
+            pw.printf("The average rainfall amount for %s is %.2f inches.%n",setMonths.get(i), sum/data_count);
         }
         pw.close();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        RainData atlanta = new RainData("Atlanta.txt");
+        RainData atlanta = new RainData("Macon.txt");
         atlanta.OverallAverage();
         atlanta.averageByMonth();
     }
