@@ -57,7 +57,7 @@ public class Main {
 
 
             // send response header
-            pw.println("HTTP/1.1 " + result);
+            pw.println("HTTP/1.x " + result);
 
             // send back content-type
             // determine file extension (html or css) and use it here
