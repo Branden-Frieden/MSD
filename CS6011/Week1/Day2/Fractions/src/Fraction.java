@@ -1,3 +1,5 @@
+import java.io.InvalidObjectException;
+
 public class Fraction {
     long numerator;
     long denominator;
@@ -7,14 +9,16 @@ public class Fraction {
         denominator = 1;
     }
 
-    public Fraction( long n, long d){
+   // construct fraction
+    public Fraction( long n, long d) throws ArithmeticException{
         numerator = n;
         denominator = d;
-        if(d == 0){
-            denominator = 1;
+        if(d == 0) {
+            throw new ArithmeticException("cannot have a fraction with denominator 0");
         }
     }
 
+    // multiply the denominators by eachother and the corresponding numerators to match then add together
     public Fraction plus( Fraction rhs ){
         if(denominator ==rhs.denominator){
             Fraction newFraction = new Fraction((numerator + rhs.numerator), denominator);
@@ -41,6 +45,7 @@ public class Fraction {
         }
     }
 
+    // multiply numerators together and put them over the denominators multiplied
     public Fraction times(Fraction rhs){
         long newNumerator = numerator * rhs.numerator;
         long newDenominator = denominator * rhs.denominator;
@@ -61,9 +66,7 @@ public class Fraction {
     }
 
     public String toString(){
-        String StrNumerator = String.valueOf(numerator);
-        String StrDenominator = String.valueOf(denominator);
-        String output = StrNumerator + "/" + StrDenominator;
+        String output = numerator + "/" + denominator;
         return output;
     }
 
@@ -79,11 +82,11 @@ public class Fraction {
             remainder = gcd % remainder;
             gcd = temp;
         }
-        return gcd;
+        return Math.abs(gcd);
     }
 
     public void reduce(){
-        long gcd = this.GCD()
+        long gcd = this.GCD();
         numerator /= gcd;
         denominator /= gcd;
     }

@@ -15,13 +15,14 @@ public class RainData {
             "September", "October", "November", "December"));
     ArrayList<Integer> Years = new ArrayList<Integer>();
     ArrayList<Double> Rainfall = new ArrayList<Double>();
-    PrintWriter pw = new PrintWriter( new FileOutputStream( "rainfall_data.txt") );
+
+    String city;
     String fileName;
     Scanner fileReader;
     RainData(String inputFile) throws FileNotFoundException {
         fileName = inputFile;
         fileReader = new Scanner( new FileInputStream( fileName ) );
-        fileReader.next();
+        city = fileReader.next();
 
         for(int i = 0; i < 240; i++){
             Months.add(fileReader.next());
@@ -36,7 +37,7 @@ public class RainData {
         for(int i = 0; i < Rainfall.size(); i++){
             sum += Rainfall.get(i);
         }
-
+        pw.println(city);
         pw.printf("The overall average rainfall amount is %.2f %n %n", sum/(Rainfall.size()));
         pw.close();
     }

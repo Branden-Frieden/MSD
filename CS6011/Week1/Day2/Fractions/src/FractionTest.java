@@ -25,6 +25,12 @@ class FractionTest {
         Assertions.assertEquals(f1.toString(), f1_as_String);
         Assertions.assertEquals(f1.toDouble(), f1_as_double);
 
+        try {
+            Fraction f3 = new Fraction(10, 0);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
 
     }
