@@ -1,5 +1,10 @@
 import java.io.InvalidObjectException;
 
+interface Comparable<T>{
+    int compareTo(T o);
+}
+
+
 public class Fraction {
     long numerator;
     long denominator;
@@ -89,6 +94,17 @@ public class Fraction {
         long gcd = this.GCD();
         numerator /= gcd;
         denominator /= gcd;
+    }
+
+    public int compareTo(Fraction frac){
+        double diff = (this.minus(frac)).toDouble();
+        if( diff < 0 ){
+            return -1;
+        } else if ( diff == 0) {
+            return 0;
+        } else{
+            return 1;
+        }
     }
 
     public static void main(String[] args) {

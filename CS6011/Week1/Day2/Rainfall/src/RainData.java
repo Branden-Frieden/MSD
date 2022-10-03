@@ -66,6 +66,4 @@ public class RainData {
         atlanta.OverallAverage();
         atlanta.averageByMonth();
     }
-
-
 }

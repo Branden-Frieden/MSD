@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class FractionTest {
 
 
@@ -32,6 +34,17 @@ class FractionTest {
             System.out.println(e.getMessage());
         }
 
+        ArrayList<Fraction> fractions = new ArrayList<Fraction>();
+        fractions.add(new Fraction(3,2));
+        fractions.add(new Fraction(-2,1));
+        fractions.add(new Fraction(1,1));
+        fractions.add(new Fraction(1,2));
+        fractions.add(new Fraction(-1,-3));
+
+        fractions.sort(Fraction::compareTo);
+
+        Assertions.assertEquals(fractions.get(0).toDouble(), -2);
+        Assertions.assertEquals(fractions.get(4).toDouble(), 1.5);
 
     }
 }
