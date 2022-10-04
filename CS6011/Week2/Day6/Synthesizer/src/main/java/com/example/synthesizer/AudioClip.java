@@ -3,11 +3,15 @@ package com.example.synthesizer;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class AudioClip {
+public class AudioClip{
     static double duration_ = 2.0;
     static int sampleRate_ = 44100;
-    byte[] data_ = new byte[(int)(duration_ * sampleRate_) * 2 + 1];
+    byte[] data_ = new byte[(int)(duration_ * sampleRate_) * 2];
 
+    public int getTotalSamples(){
+
+        return data_.length;
+    }
     public int getSample( int index ){
         byte val1 = (byte)Array.get(data_, index * 2 );
         short val2 = (byte) Array.get(data_, index * 2 + 1 );
