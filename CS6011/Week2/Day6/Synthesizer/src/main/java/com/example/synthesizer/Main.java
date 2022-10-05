@@ -9,6 +9,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
+import static javafx.application.Application.launch;
+
 public class Main {
 
     public static void main(String[] args) throws LineUnavailableException {
@@ -40,7 +42,7 @@ public class Main {
                 System.out.printf("error at index %d expected: %d actual: %d %n", i, randNum, getNum);
             }
         }
-         */
+
 
         // Get properties from the system about samples rates, etc.
     // AudioSystem is a class from the Java standard library.
@@ -59,8 +61,13 @@ public class Main {
         AudioComponent volume = new filter(.5);
         volume.connectInput(mixer);
 
+        // linear ramp test
 
-        AudioClip clip = volume.getClip();
+        AudioComponent linramp = new LinearRamp(50, 2000);
+        AudioComponent vfSineWave = new VFSineWave();
+        vfSineWave.connectInput(linramp);
+
+        AudioClip clip = vfSineWave.getClip();
         c.open( format16, clip.getData(), 0, clip.getData().length ); // Reads data from our byte array to play it.
 
         System.out.println( "About to play..." );
@@ -74,6 +81,10 @@ public class Main {
 
         System.out.println( "Done." );
         c.close();
+        */
+
     }
+
+
 
 }

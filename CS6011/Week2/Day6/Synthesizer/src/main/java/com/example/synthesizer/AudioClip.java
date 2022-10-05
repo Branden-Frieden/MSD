@@ -28,7 +28,7 @@ public class AudioClip{
         Array.set(data_ ,index * 2 + 1, byteVal );
     }
     public byte[] getData(){
-        return Arrays.copyOf(data_, (int) (sampleRate_ * duration_));
+        return Arrays.copyOf(data_, (int) (sampleRate_ * duration_ * 2));
     }
 
 }

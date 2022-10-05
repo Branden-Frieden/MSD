@@ -19,7 +19,6 @@ public class SineWave implements AudioComponent{
         for(int i = 0; i < sampleRate_ * sampleTime_; i++){
             output.setSample(i, (int)(Short.MAX_VALUE * Math.sin(2*Math.PI*frequency_ * i / sampleRate_)));
         }
-
         return output;
     }
 
