@@ -29,6 +29,6 @@ public class SineWave implements AudioComponent{
 
     @Override
     public void connectInput(AudioComponent input) {
-        assert(false);
+        return;
     }
 }

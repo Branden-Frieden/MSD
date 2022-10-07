@@ -5,7 +5,7 @@ public class LinearRamp implements AudioComponent{
     float start_;
     float stop_;
 
-    LinearRamp( int start, int stop){
+    LinearRamp( float start, float stop){
         start_ = start;
         stop_ = stop;
     }
