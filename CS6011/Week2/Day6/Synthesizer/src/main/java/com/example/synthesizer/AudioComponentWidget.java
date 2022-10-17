@@ -177,11 +177,18 @@ public class AudioComponentWidget extends Pane {
     }
 
     public void closeWidget(){
+
+        for(AudioComponentWidget w: SynthesizeApplication.widgets_){
+            if(w.inputs_.contains(this)){
+                w.inputs_.remove(this);
+            }
+        }
         parent_.getChildren().remove( this );
         parent_.getChildren().remove( line_ );
         line_ = null;
         SynthesizeApplication.widgets_.remove( this );
         SynthesizeApplication.widgetsConnectedToSpeaker_.remove( this );
+
     }
 
     public AudioComponent getAudioComponent(){

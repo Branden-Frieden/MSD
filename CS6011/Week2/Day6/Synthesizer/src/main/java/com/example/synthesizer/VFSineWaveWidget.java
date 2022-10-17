@@ -5,20 +5,18 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 
-import java.awt.event.MouseEvent;
-
 public class VFSineWaveWidget extends AudioComponentWidget{
     VFSineWaveWidget(AudioComponent ac, AnchorPane parent, String name) {
         super(ac, parent, name);
 
-        minVal_ = 50;
-        maxVal_ = 2000;
+        rampVal1_ = 50;
+        rampVal2_ = 2000;
 
-        ramp_ = new LinearRamp(minVal_, maxVal_);
+        ramp_ = new LinearRamp(rampVal1_, rampVal2_);
         audioComponent_.connectInput(ramp_);
 
-        minSlider_ = new Slider(-10000, 10000, minVal_);
-        maxSlider_ = new Slider(-10000, 10000, maxVal_);
+        minSlider_ = new Slider(-10000, 10000, rampVal1_);
+        maxSlider_ = new Slider(-10000, 10000, rampVal2_);
 
         minSlider_.setOnMouseDragged(e -> handleSlider());
         maxSlider_.setOnMouseDragged(e -> handleSlider());
@@ -34,20 +32,16 @@ public class VFSineWaveWidget extends AudioComponentWidget{
     }
 
     private void handleSlider() {
-        minVal_ = (int) minSlider_.getValue();
-        maxVal_ = (int) maxSlider_.getValue();
+        rampVal1_ = (int) minSlider_.getValue();
+        rampVal2_ = (int) maxSlider_.getValue();
 
-        if(minVal_ >= maxVal_){
-            minVal_ = maxVal_ - 1;
-        }
+        title_.setText("VFSineWave val1: " + rampVal1_ + ", val2: " + rampVal2_);
 
-        title_.setText("VFSineWave min: " + minVal_ + ", max: " + maxVal_);
-
-        ramp_ = new LinearRamp(minVal_,maxVal_);
+        ramp_ = new LinearRamp(rampVal1_,rampVal2_);
         audioComponent_ = new VFSineWave();
         audioComponent_.connectInput(ramp_);
     }
     Slider minSlider_, maxSlider_;
     LinearRamp ramp_;
-    int minVal_, maxVal_;
+    int rampVal1_, rampVal2_;
 }
