@@ -17,7 +17,18 @@ function clickFun( event ) {
     event.target.style.background = "red";
     currentSelectedID = event.target.id;
 }
-window.setInterval(adjustBackgroundColor, 2000);
+function toggleInterval() {
+    if(intervalId != null){
+        window.clearInterval(intervalId);
+        intervalId = null;
+    }
+    else{
+        intervalId = window.setInterval(adjustBackgroundColor, 1000);
+
+    }
+
+}
+
 function adjustBackgroundColor(){
     if(document.body.style.backgroundColor == "red"){
         document.body.style.backgroundColor = "purple";
@@ -27,7 +38,7 @@ function adjustBackgroundColor(){
     }
 }
 document.body.style.backgroundColor = "red";
-document.body.style.transition = "2s";
+document.body.style.transition = "1s";
 let currentSelectedID = null;
 let myTable = document.createElement('table');
 myTable.style.border = "1px solid black";
@@ -59,3 +70,8 @@ for(let i = 1; i < 11; i++){
     }
 }
 
+let intervalId = window.setInterval(adjustBackgroundColor, 1000);
+let myButton = document.createElement('button');
+myButton.innerText = "toggle backgound";
+myButton.addEventListener("click", toggleInterval);
+document.body.appendChild(myButton);
