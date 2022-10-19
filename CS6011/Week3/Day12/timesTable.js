@@ -24,7 +24,6 @@ function toggleInterval() {
     }
     else{
         intervalId = window.setInterval(adjustBackgroundColor, 1000);
-
     }
 
 }
