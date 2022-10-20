@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        textarea{
+            resize: none;
+            whitespace: nowrap;
+            overflow-x:hidden;
+        }
+        li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 5px;
+
+        }
+
+    </style>
+    <script defer type="text/javascript" src="Calculator.js"></script>
+</head>
+<body>
+    Calculator
+    <ul>
+        <li>
+            <label>X Value:</label>
+            <textarea id='xTA'></textarea>
+        </li>
+        <li>
+            <label>Y Value:</label>
+            <textarea id='yTA'></textarea>
+        </li>
+        <li>
+            <button id="addButton">Add Numbers</button>
+        </li>
+        <li>
+            <label>Result:</label>
+            <textarea id='resultTA'></textarea>
+        </li>
+        <li>
+            <label>WS Result:</label>
+            <textarea id='wsResultTA'></textarea>
+        </li>
+    </ul>
+
+
+</body>
+</html>
