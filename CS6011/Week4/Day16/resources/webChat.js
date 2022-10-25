@@ -55,6 +55,10 @@ function handleKeyPressCB( event ){
         if( !connected ){
             let name = nameBox.value;
             let room = roomBox.value;
+            if(/\s/.test(room) || room != room.toLowerCase()){
+                return;
+            }
+
             if( name === '' || room === ''){
                 console.log('invalid connection');
                 return;
