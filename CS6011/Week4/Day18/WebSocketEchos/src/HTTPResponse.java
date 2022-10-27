@@ -14,7 +14,7 @@ public class HTTPResponse {
         OutputStream outputStream = socketToClient.getOutputStream();
 
         PrintWriter pw = new PrintWriter(outputStream);
-        if(!properties.get( "Connection" ).contains("Upgrade")) {
+        if (!properties.get("Connection").contains("Upgrade")) {
             try {
                 // open the requested file ( filename)
                 File file = new File(filename);
@@ -53,92 +53,23 @@ public class HTTPResponse {
                 pw.close();
                 socketToClient.close();
             }
-        } else{
+        } else {
             pw.println("HTTP/1.1 101 Switching Protocols");
             pw.println("Upgrade: websocket");
             pw.println("Connection: keep-alive, Upgrade");
             String accept = properties.get("Sec-WebSocket-Key") + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
             byte[] asBytes = accept.getBytes();
             MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update( asBytes );
+            md.update(asBytes);
             byte[] sha1 = md.digest();
-            byte[] b64 = Base64.getEncoder().encode( sha1 );
-            String webSocketAccept = new String( b64 );
+            byte[] b64 = Base64.getEncoder().encode(sha1);
+            String webSocketAccept = new String(b64);
 
             pw.println("Sec-WebSocket-Accept: " + webSocketAccept);
             pw.println("");
             pw.flush();
 
-            DataInputStream webSocket = new DataInputStream( new BufferedInputStream(socketToClient.getInputStream()) );
-            boolean done = false;
-
-
-            while(!done){
-                OutputStream out = socketToClient.getOutputStream();
-                boolean fin = false;
-                boolean masked = false;
-                int payloadLength = 0;
-                int returnMessageLength = 2;
-
-                byte b0 = webSocket.readByte();
-                if( ( b0 & 0x80 ) != 0 ){
-                    fin = true;
-                }
-                byte opCode = (byte) (b0 & 0x0F);
-
-                byte b1 = webSocket.readByte();
-                if( ( b1 & 0x80 ) != 0){
-                    masked = true;
-                }
-
-                byte guessLength = (byte) (b1 & 0x7F);
-
-                if( guessLength == 0x7E ){
-                    short extendedPayloadLength = webSocket.readShort();
-                    payloadLength = extendedPayloadLength;
-                    returnMessageLength += 2 + extendedPayloadLength;
-                }else if( guessLength == 0x7F ){
-                    long extendedPayloadLength = webSocket.readLong();
-                    payloadLength = (int) extendedPayloadLength;
-                    returnMessageLength += 8 + extendedPayloadLength;
-                }else{
-                    payloadLength = guessLength;
-                }
-
-                byte[] returnMessage = new byte[returnMessageLength];
-
-                if(masked){
-
-
-                    byte[] MASK = new byte[ 4 ];
-                    for(int i = 0; i < 4; i++) {
-                        MASK[i] = webSocket.readByte();
-                    }
-                    byte [] ENCODED = new byte[payloadLength];
-                    for(int i = 0; i < payloadLength; i++){
-                        ENCODED[i] = webSocket.readByte();
-                    }
-                    byte[] DECODED = new byte[ENCODED.length ];
-
-                    for( int i = 0; i < ENCODED.length; i++){
-                        DECODED[ i ] = (byte) (ENCODED[i] ^ MASK[i % 4]);
-                    }
-
-                    System.out.write(DECODED, 0, DECODED.length);
-                    System.out.println("");
-                    out.write(DECODED, 0, DECODED.length);
-                   //out.flush();
-
-
-                }else {
-                    for(int i = 0; i < payloadLength; i++){
-                        byte[] DECODED = new byte[payloadLength];
-                        DECODED[i] =  webSocket.readByte();
-                    }
-                }
-
-            }
-
+            new WebSocket(socketToClient.getInputStream(), socketToClient.getOutputStream());
         }
     }
 

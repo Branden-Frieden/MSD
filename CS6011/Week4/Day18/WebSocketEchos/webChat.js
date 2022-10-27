@@ -14,7 +14,7 @@ function handleCloseCB( event ){
 function handleMessageFromWsCB( event ){
     let msg = event.data;
     console.log( "got reply from socket");
-    let object = JSON.parse( msg );
+    /*let object = JSON.parse( msg );
 
     let type = object.type;
     let user = object.user;
@@ -46,7 +46,8 @@ function handleMessageFromWsCB( event ){
 
         let leaver = document.getElementById( user );
         leaver.remove();
-    }
+    }*/
+    console.log(msg);
 }
 
 function handleKeyPressCB( event ){
