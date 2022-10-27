@@ -3,6 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -73,15 +74,5 @@ public class HTTPResponse {
         }
     }
 
-    public static void main(String[] args) throws IOException {
 
-        ServerSocket servSocket = new ServerSocket(8080);
-        boolean done = false;
-
-        while (!done) {
-            Socket socketToClient = servSocket.accept();
-            Thread newThread = new Thread(new myRunnable( socketToClient ));
-            newThread.start();
-        }
-    }
 }
