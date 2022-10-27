@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        .top {
+            text-align: center;
+            tab-size: 20;
+        }
+        .container{
+            display: table;
+            width: 100%;
+
+        }
+        .rooms{
+            text-align: center;
+            border: 1px solid black;
+            background-color: lightblue;
+            height: 500px;
+            width: 24%;
+            display: table-cell;
+            float: left;
+            overflow-y: scroll;
+        }
+        .messages{
+            border: 1px solid black;
+            background-color: lightblue;
+            height: 500px;
+            width: 75%;
+            flex-grow: 1;
+            display:table-cell;
+            float: right;
+            overflow-y: scroll;
+        }
+        textarea{
+            resize: none;
+            whitespace: nowrap;
+            overflow-x:hidden;
+            height: auto;
+        }
+    </style>
+
+
+    <script defer type="text/javascript" src="webChat.js"></script>
+</head>
+<body>
+<div class="top">
+    <p><label>Name: </label><textarea id="name" rows="1">Branden</textarea> &emsp; &emsp; &emsp; <label>Room: </label><textarea id="room" rows="1">testroom</textarea></p>
+</div>
+
+<div class="container">
+    <div class="rooms" id="rooms">
+    <h1>Users:</h1>
+    </div>
+
+    <div class="messages" id="messages">
+
+    </div>
+</div>
+<div style="text-align: center">
+    <p> <label>Message: </label><textarea id="message" rows="1"cols="50"></textarea></p>
+</div>
+</body>
+</html>
