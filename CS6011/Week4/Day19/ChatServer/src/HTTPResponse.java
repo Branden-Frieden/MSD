@@ -15,7 +15,29 @@ public class HTTPResponse {
         OutputStream outputStream = socketToClient.getOutputStream();
 
         PrintWriter pw = new PrintWriter(outputStream);
-        if (!properties.get("Connection").contains("Upgrade")) {
+        if (properties.get("Connection").contains("Upgrade")) {
+
+            // send websocket handshake headers
+            pw.println("HTTP/1.1 101 Switching Protocols");
+            pw.println("Upgrade: websocket");
+            pw.println("Connection: keep-alive, Upgrade");
+            String accept = properties.get("Sec-WebSocket-Key") + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+
+            // create key for web socket header
+            MessageDigest md = MessageDigest.getInstance( "SHA-1" );
+            byte[] data = accept.getBytes();
+            String webSocketAccept = Base64.getEncoder().encodeToString(md.digest( data ));
+
+            pw.println("Sec-WebSocket-Accept: " + webSocketAccept);
+            pw.println("");
+            pw.flush();
+
+            // create web socket handler( has a loop that will run until left)
+            new WebSocket(socketToClient);
+            socketToClient.close();
+
+        } else {
+
             try {
                 // open the requested file ( filename)
                 File file = new File(filename);
@@ -54,23 +76,6 @@ public class HTTPResponse {
                 pw.close();
                 socketToClient.close();
             }
-        } else {
-            pw.println("HTTP/1.1 101 Switching Protocols");
-            pw.println("Upgrade: websocket");
-            pw.println("Connection: keep-alive, Upgrade");
-            String accept = properties.get("Sec-WebSocket-Key") + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-            byte[] asBytes = accept.getBytes();
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(asBytes);
-            byte[] sha1 = md.digest();
-            byte[] b64 = Base64.getEncoder().encode(sha1);
-            String webSocketAccept = new String(b64);
-
-            pw.println("Sec-WebSocket-Accept: " + webSocketAccept);
-            pw.println("");
-            pw.flush();
-
-            new WebSocket(socketToClient);
         }
     }
 

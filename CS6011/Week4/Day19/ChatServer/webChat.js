@@ -25,6 +25,7 @@ function handleMessageFromWsCB( event ){
         let userMessage = document.createElement('p');
         userMessage.innerHTML = "<b>" + user + ":</b> " + message;
         messages.appendChild( userMessage );
+        messages.scrollTop = messages.scrollHeight;
     }
     else if( type == "join" ){
         let userName = document.createElement( 'p' );
@@ -83,6 +84,7 @@ function handleKeyPressCB( event ){
 
             console.log(connectedName + " " + msg);
             ws.send(connectedName + " " + msg);
+            event.target.select();
         }
     }
 }

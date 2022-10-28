@@ -11,8 +11,10 @@ public class myRunnable implements Runnable {
     @Override
     public void run() {
         try {
+
             HTTPRequest req = new HTTPRequest(socketToClient);
             new HTTPResponse(req.HTTPgetFileName(), req.HTTPgetClientSocket(), req.HTTPgetProperties());
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
