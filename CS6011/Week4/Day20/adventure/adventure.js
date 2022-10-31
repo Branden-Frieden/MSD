@@ -19,6 +19,7 @@ function handleMessage( event ){
     div.appendChild( p );
     p.scrollIntoView();
 }
+
 function handleCommand( e ){
     if( e.keyCode == 13 ){
 
@@ -35,15 +36,16 @@ function handleCommand( e ){
 
 function main() {
 
-    let ta = document.getElementByID( "command" );
+    console.log("in main")
+    let ta = document.getElementById( "command" );
     ta.onkeypress = handleCommand;
 
-    let ws= new WebSocket( "ws://localhost:8080" );
+    ws = new WebSocket( "ws://localhost:8080" );
     ws.addEventListener("open", handleLoad);
     ws.onerror = handleError;
     ws.onclose = handleClose;
     ws.onmessage = handleMessage;
-    ws.onopen =handleLoad;
+    ws.onopen = handleLoad;
 }
 
 

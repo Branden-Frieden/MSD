@@ -1,3 +1,7 @@
+import items.Item;
+import rooms.Cell;
+import rooms.Room;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,8 +26,10 @@ public class Main {
         String line = scanner.nextLine();
         System.out.println("just got: " + line);
 
+
+
         System.out.println("Server runnning in directory: " + System.getProperty( "user.dir"));
-        System.exit(1);
+        //System.exit(1);
 
         HashMap<String, String> headers_ = new HashMap<>();
 
@@ -47,24 +53,46 @@ public class Main {
             System.out.println("bad connection");
             System.exit(1);
         }
+        //////////////////////////
+        // create the house...
 
-        boolean x = false;
-        while( !x ){}
-        System.exit(1);
+
+
+        Room entrance = new Room( "Foyer", "A dusty entrance hall");
+        Room grandHall = new Room( "Grand Hall", "A large room made for dancing.");
+        Room cell = new Cell();
+
+        entrance.addConnection( grandHall );
+        entrance.addConnection( cell );
+
+
+        //////////////////////////
+        // create items in the house ...
+
+        Item key = new Item( "Key", "A shiny key");
+        entrance.addItem( key );
 
         //////////////////////////
         // start the game ...
 
-
         sendMessage( "Welcome to Adventure 2022", client);
-
+        Room currentRoom = entrance;
         boolean done = false;
+        String userRequest = "What would you like to do?";
+
         while( !done ){
             String msg = currentRoom.print();
-            sendMessage( msg,client);
-
+            sendMessage( msg, client);
+            sendMessage( userRequest, client);
             String command = handleCommand( client );
 
+            if( Character.isDigit( command.charAt(0))){
+                int doorNum = Integer.parseInt( command );
+                Room newRoom = currentRoom.goThroughDoor( doorNum );
+                if(newRoom != null){
+                    currentRoom = newRoom;
+                }
+            }
         }
     }
 

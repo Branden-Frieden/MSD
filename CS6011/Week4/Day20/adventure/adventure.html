@@ -1,9 +1,23 @@
 <!doctype html>
 <html>
 <head>
+    <style>
+        div {
+            background-color: lightgreen;
+            overflow-y: auto;
+            text-align: justify;
+            border: 1px solid black;
+            padding: 20px;
+        }
+        textarea{
+            resize: none; white-space: nowrap; overflow-x: hidden; width: 500px;
+        }
+    </style>
     <script defer src="adventure.js"></script>
 </head>
 <body>
+<textarea id="command"></textarea>
+<div id="thediv">Adventure goes in here...</div>
 
 </body>
 </html>
