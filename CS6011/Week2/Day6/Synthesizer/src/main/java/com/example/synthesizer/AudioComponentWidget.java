@@ -181,6 +181,7 @@ public class AudioComponentWidget extends Pane {
         for(AudioComponentWidget w: SynthesizeApplication.widgets_){
             if(w.inputs_.contains(this)){
                 w.inputs_.remove(this);
+                w.line_ = null;
             }
         }
         parent_.getChildren().remove( this );

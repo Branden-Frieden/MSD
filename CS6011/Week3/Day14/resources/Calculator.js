@@ -53,9 +53,12 @@ function handleKeyPressCB( event ){
         // make AJAX request to get the calculation
         let request = new XMLHttpRequest();
         request.open( "GET", "http://localhost:8080/calculate?x=" + x + "&y=" + y );
+
+        request.overrideMimeType("text/html")
+
         request.addEventListener( "error", handleAjaxErrorCB);
         request.addEventListener( "load", handleAjaxSuccessCB);
-        request.send( "x+y" );
+        request.send(  );
 
         // make WebSocket request to get the calculation
         if(wsOpen ) {
