@@ -52,7 +52,7 @@ public class myWebSocketAdapter extends WebSocketAdapter{
             String fullName = s.substring(start,end);
 
             start = s.indexOf("\"message\" :") + 12;
-            end = s.length() - 1;
+            end = s.length() - 2;
             String message = s.substring(start, end);
 
             outputMessage = fullName + ": " + message;

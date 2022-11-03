@@ -13,24 +13,42 @@ public class WebSocket {
 
     public WebSocket(Socket socketToClient) throws IOException {
 
+
         DataInputStream webSocket = new DataInputStream(new BufferedInputStream(socketToClient.getInputStream()));
 
         byte[] DECODED;
 
         while (!done_) {
 
-            
-            // gets the decoded message from the client web socket
-            DECODED = DecodePayload(webSocket);
+            try {
+                // gets the decoded message from the client web socket
+                DECODED = DecodePayload(webSocket);
 
-            // generates a response string based on what the client sends
-            String outputString = generateResponse(DECODED, socketToClient);
+                // generates a response string based on what the client sends
+                String outputString = generateResponse(DECODED, socketToClient);
 
-            // creates byte array of the outputString to be sent out
-            byte[] output = generateOutput(outputString);
+                // creates byte array of the outputString to be sent out
+                byte[] output = generateOutput(outputString);
 
-            // sends the message to all the clients in the room
-            room_.sendMessages(output);
+                // sends the message to all the clients in the room
+                room_.sendMessages(output);
+            } catch ( EOFException e ){
+
+                // user suddenly disconnected, remove them from room
+                room_.removeClient(socketToClient);
+
+                // generate a leave response and exit
+                String outputString = "{\"type\" :\"leave\", \"user\" :\"" + fullName_
+                                    + "\",\"room\" :\"" + room_.roomName_ + "\"}";
+
+                // creates byte array of the outputString to be sent out
+                byte[] output = generateOutput(outputString);
+
+                // sends the message to all the clients in the room
+                room_.sendMessages( output );
+
+                return;
+            }
         }
     }
 
