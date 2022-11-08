@@ -1,0 +1,35 @@
+ 1. Where is the assertEquals method defined? What does it do? Can we use assertEquals for more than just int types? (Hint: Consult the API for JUnit)
+
+  assertEquals is defined in the library for junit.jupiter.API
+  it allows us to check that 2 values are equal and throws an error if they aren't
+  it can be used for lots of types other than int, basically any object
+
+2. Briefly describe what each of the three tests is checking.
+
+  whether the empty array returns -1;
+  if an array of equal numbers returns 0;
+  if a randomish array returns the correct value;
+
+3. Why is our unimplemented findSmallestDiff method passing one of the tests?
+
+  the second test is expecting 0 and our test wants it to be 0 as well
+
+4. Why are we failing the third test? How should our method be modified to correct this?
+
+  negative numbers mess it up becuase a negative difference is the same as
+  positive, but will always register as lower.
+  to fix it, take the absolute value of the difference
+
+
+5. What is the appropriate call to assertEquals for your new test (test 4)?
+
+  assertEquals(2, DiffUtil.findSmallestDiff( arr4 ));
+
+6. Provide one more test (test 5) for the findSmallestDiff method. Briefly describe your test and write the call to assertEquals here.
+
+  this one tests an array that has been given a size, but don't have any
+  values put into it, its essentially filled with 0's, so we expect 0.
+
+  assertEquals(0, DiffUtil.findSmallestDiff( arr5 ));
+
+7. Briefly describe your unit tests for Assignment 1
