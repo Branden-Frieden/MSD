@@ -7,7 +7,7 @@ public class Main {
 
     public static void badSum() throws InterruptedException {
         answer = 0;
-        int maxValue = 100;
+        int maxValue = 40000;
         int numThreads = 5;
         ArrayList<Thread> threads = new ArrayList<>();
 
