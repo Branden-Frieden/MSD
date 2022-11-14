@@ -46,19 +46,32 @@ class LibraryGenericTest {
         PhoneNumber patron2 = new PhoneNumber("801.555.1234");
 
         assertTrue(lib.checkout(9780330351690L, patron2, 1, 1, 2008));
-        assertTrue(lib.checkout(9780374292799L, patron2, 1, 1, 2008));
+        assertTrue(lib.checkout(9780374292799L, patron2, 1, 3, 2008));
+        assertTrue(lib.checkout( 9780446580342L, patron2, 1,1,2009 ));
 
         ArrayList<LibraryBookGeneric<PhoneNumber>> booksCheckedOut2 = lib.lookup(patron2);
 
-        assertEquals(booksCheckedOut2.size(), 2);
+        assertEquals(booksCheckedOut2.size(), 3);
         assertTrue(booksCheckedOut2.contains(new LibraryBookGeneric<>(9780330351690L, "Jon Krakauer", "Into the Wild")));
         assertTrue(booksCheckedOut2.contains(new LibraryBookGeneric<>(9780374292799L, "Thomas L. Friedman", "The World is Flat")));
         assertEquals(booksCheckedOut2.get(0).getHolder(),patron2);
-        assertEquals(booksCheckedOut2.get(0).getDueDate(),new GregorianCalendar(2008, 1, 1));
+        assertEquals(booksCheckedOut2.get(0).getDueDate(),new GregorianCalendar(2008, 1, 3));
         assertEquals(booksCheckedOut2.get(1).getHolder(), patron2);
         assertEquals(booksCheckedOut2.get(1).getDueDate(), new GregorianCalendar(2008, 1, 1));
 
+        assertTrue(lib.checkin(9780446580342L));
+        assertTrue(lib.checkout( 9780446580342L, patron2, 1,1,2009 ));
+
+        assertEquals(9780330351690L, lib.getInventoryList().get(0).getIsbn());
+
+        assertEquals("David Baldacci", (lib.getOrderedByAuthor()).get(0).getAuthor());
+
+        assertEquals("Jon Krakauer", (lib.getOverdueList(1, 2, 2008)).get(0).getAuthor());
+
         assertTrue(lib.checkin(patron2));
+
+
+
 
     }
 }

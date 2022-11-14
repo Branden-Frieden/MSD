@@ -103,6 +103,7 @@ public class Library {
    */
   public String lookup(long isbn) {
 
+    // for every book in the library, if the ISBN matches the lookup, return the holder of that book
     for(LibraryBook book: library){
       if(book.getIsbn() == isbn){
         return book.getHolder();
@@ -120,13 +121,14 @@ public class Library {
    *          -- holder whose checked out books are returned
    */
   public ArrayList<LibraryBook> lookup(String holder) {
+
+    // for every book in the library, if the holder is the searched holder, add the book to the return array
     ArrayList<LibraryBook> books = new ArrayList<>();
     for(LibraryBook book: library){
       if(book.getHolder() == holder){
         books.add(book);
       }
     }
-
     return books;
   }
 
@@ -153,6 +155,7 @@ public class Library {
    */
   public boolean checkout(long isbn, String holder, int month, int day, int year) {
 
+    // for every book in the library, if the ISBN matches and there is no holder, check out the book
     for(LibraryBook book: library){
       if(book.getIsbn() == isbn){
         if(book.getHolder() == null){
@@ -160,6 +163,7 @@ public class Library {
           return true;
         }
         else{
+          // if the book exists, but it's already checked out, return false
           return false;
         }
       }
@@ -180,6 +184,8 @@ public class Library {
    *          -- ISBN of the library book to be checked in
    */
   public boolean checkin(long isbn) {
+
+    // for every book in the library, if the ISBN matches and there is a holder, check in the book
     for(LibraryBook book: library) {
       if ( book.getIsbn() == isbn ) {
         if( book.getHolder() != null ){
@@ -187,6 +193,7 @@ public class Library {
           return true;
         }
         else{
+          // if there is no holder, its already checked in, return false
           return false;
         }
       }
@@ -206,12 +213,15 @@ public class Library {
    *          -- holder of the library books to be checked in
    */
   public boolean checkin(String holder) {
+    // create array of all books a holder has checked out
     ArrayList<LibraryBook> holderBooks = lookup( holder );
 
+    // if the holder has no books checked out, return false
     if( holderBooks.size() == 0){
       return false;
     }
 
+    // otherwise, go through every book in the holderBooks and check them in
     for(LibraryBook book: holderBooks){
       book.checkIn();
     }
