@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BinarySearchSetTest {
     BinarySearchSet<Integer> intNaturalSearchSet1, intReversedSearchSet1, intEmptySearchSet;
+    BinarySearchSet<Double> doubleNaturalSeachSet;
     Comparator<Integer> reverseInt;
     public class reverseIntCompare implements Comparator<Integer> {
 
@@ -43,6 +44,15 @@ class BinarySearchSetTest {
         intReversedSearchSet1.add( 6 );
         intReversedSearchSet1.add( -12 );
 
+        doubleNaturalSeachSet = new BinarySearchSet<Double>();
+        doubleNaturalSeachSet.add(4.3);
+        doubleNaturalSeachSet.add(4.2);
+        doubleNaturalSeachSet.add(-8.6);
+        doubleNaturalSeachSet.add(452.1);
+        doubleNaturalSeachSet.add(0.0);
+        doubleNaturalSeachSet.add(1.1);
+
+
     }
 
     @AfterEach
@@ -51,7 +61,7 @@ class BinarySearchSetTest {
 
 
     @Test
-    void addIntegers() {
+    void add() {
 
         assertTrue(intEmptySearchSet.add(35));
         assertFalse(intNaturalSearchSet1.add(3));
@@ -66,6 +76,10 @@ class BinarySearchSetTest {
         assertEquals(1000, intReversedSearchSet1.first());
         assertEquals(-500, intReversedSearchSet1.last());
 
+        assertTrue(doubleNaturalSeachSet.add(-81.2));
+        assertTrue(doubleNaturalSeachSet.add(453.8));
+        assertFalse(doubleNaturalSeachSet.add(-8.6));
+        assertFalse(doubleNaturalSeachSet.add(452.1));
     }
 
     @Test
@@ -73,6 +87,7 @@ class BinarySearchSetTest {
         assertEquals(reverseInt, intReversedSearchSet1.comparator());
         assertNull(intNaturalSearchSet1.comparator());
         assertNull(intEmptySearchSet.comparator());
+        assertNull(doubleNaturalSeachSet.comparator());
     }
 
     @Test
@@ -83,6 +98,7 @@ class BinarySearchSetTest {
         }
         assertEquals(-8, intNaturalSearchSet1.first());
         assertEquals(9, intReversedSearchSet1.first());
+        assertEquals(-8.6, doubleNaturalSeachSet.first());
     }
 
     @Test
@@ -93,6 +109,7 @@ class BinarySearchSetTest {
         }
         assertEquals(19, intNaturalSearchSet1.last());
         assertEquals(-12, intReversedSearchSet1.last());
+        assertEquals(452.1, doubleNaturalSeachSet.last());
     }
 
 
@@ -117,9 +134,11 @@ class BinarySearchSetTest {
         intEmptySearchSet.clear();
         intReversedSearchSet1.clear();
         intNaturalSearchSet1.clear();
+        doubleNaturalSeachSet.clear();
         assertTrue(intEmptySearchSet.isEmpty());
         assertTrue(intReversedSearchSet1.isEmpty());
         assertTrue(intNaturalSearchSet1.isEmpty());
+        assertTrue(doubleNaturalSeachSet.isEmpty());
     }
 
     @Test
@@ -130,7 +149,72 @@ class BinarySearchSetTest {
 
         assertTrue(intNaturalSearchSet1.contains( 0 ));
         assertTrue(intReversedSearchSet1.contains( 9 ));
+        assertTrue(doubleNaturalSeachSet.contains( 1.1 ));
+        assertTrue(doubleNaturalSeachSet.contains( 0.0 ));
+        assertTrue(doubleNaturalSeachSet.contains( 452.1 ));
+        assertFalse(doubleNaturalSeachSet.contains( 1.1001 ));
     }
+
+//    @Test
+//    void containsTiming() {
+//
+//        int power = 2;
+//        int maxPower = 25;
+//
+//        for(int i = 0; i < Math.pow(2,power); i++){
+//            intEmptySearchSet.add(i);
+//        }
+//
+//        int loops = 10000;
+//
+//        for (; power <= maxPower; power++) {
+//            long totalTime = 0;
+//            for (int i = 0; i < loops; i++) {
+//                long startTime = System.nanoTime();
+//                intEmptySearchSet.contains((int)(Math.random() * Math.pow(2,5)));
+//                long endTime = System.nanoTime();
+//                totalTime += endTime - startTime;
+//            }
+//            long averageTime = totalTime / loops;
+//            System.out.println(averageTime);
+//
+//            for (int i = (int) Math.pow(2, power); i < Math.pow(2, power + 1); i++) {
+//                intEmptySearchSet.add(i);
+//            }
+//        }
+//    }
+
+//    @Test
+//    void addTiming(){
+//
+//        int power = 2;
+//        int maxPower = 25;
+//
+//        for(int i = 0; i < Math.pow(2,power); i++){
+//            intEmptySearchSet.add(i);
+//        }
+//
+//        int loops = 2000;
+//
+//        for (; power <= maxPower; power++) {
+//            long totalTime = 0;
+//            for (int i = 0; i < loops; i++) {
+//                int randVal = (int)(Math.random() * Math.pow(2,power));
+//                intEmptySearchSet.remove(randVal);
+//                long startTime = System.nanoTime();
+//                intEmptySearchSet.add(randVal);
+//                long endTime = System.nanoTime();
+//                totalTime += endTime - startTime;
+//            }
+//            long averageTime = totalTime / loops;
+//            System.out.println(averageTime);
+//
+//            for (int i = (int) Math.pow(2, power); i < Math.pow(2, power + 1); i++) {
+//                intEmptySearchSet.add(i);
+//            }
+//        }
+//
+//    }
 
     @Test
     void containsAll() {
@@ -139,10 +223,15 @@ class BinarySearchSetTest {
         ints.add( 3 );
         ints.add( 5 );
 
+        ArrayList<Double> doubles = new ArrayList<>();
+        doubles.add(452.1);
+        doubles.add(1.1);
+        doubles.add(0.1);
+
         assertFalse(intEmptySearchSet.containsAll(ints));
         assertFalse(intReversedSearchSet1.containsAll(ints) );
         assertTrue(intNaturalSearchSet1.containsAll(ints));
-
+        assertFalse(doubleNaturalSeachSet.containsAll(doubles));
 
     }
 
@@ -151,11 +240,12 @@ class BinarySearchSetTest {
         assertTrue(intEmptySearchSet.isEmpty());
         assertFalse(intReversedSearchSet1.isEmpty());
         assertFalse(intNaturalSearchSet1.isEmpty());
+        assertFalse(doubleNaturalSeachSet.isEmpty());
     }
 
     @Test
     void iterator() {
-
+        // no idea how to test this
     }
 
     @Test
@@ -163,12 +253,14 @@ class BinarySearchSetTest {
         assertFalse(intEmptySearchSet.remove(1));
         assertFalse(intNaturalSearchSet1.remove(12345));
         assertFalse(intReversedSearchSet1.remove(12345));
-
+        assertFalse(doubleNaturalSeachSet.remove(12345));
         assertTrue(intNaturalSearchSet1.remove(4));
         assertTrue(intReversedSearchSet1.remove(5));
+        assertTrue(doubleNaturalSeachSet.remove(1.1));
 
         assertFalse(intNaturalSearchSet1.contains(4));
         assertFalse(intReversedSearchSet1.contains(5));
+        assertFalse(doubleNaturalSeachSet.contains(1.1));
     }
 
     @Test
@@ -193,21 +285,22 @@ class BinarySearchSetTest {
         assertEquals(0, intEmptySearchSet.size());
         assertEquals(10, intNaturalSearchSet1.size());
         assertEquals(5, intReversedSearchSet1.size());
+        assertEquals(6, doubleNaturalSeachSet.size());
     }
 
     @Test
     void toArray() {
-        Object[] naturalEqualArray = new Object[]{-8, 0, 1, 2, 3, 4, 5, 12, 14, 19, null, null, null,
-                                                    null, null, null, null, null, null, null};
-        Object[] reversedEqualArray = new Object[]{9, 6, 5, 3, -12, null, null, null, null, null};
-
-
-        for( int i = 0; i < 20; i++) {
-            assertEquals(naturalEqualArray[i], intNaturalSearchSet1.toArray()[i]);
-        }
-        for( int i = 0; i < 10; i++) {
-            assertEquals(reversedEqualArray[i], intReversedSearchSet1.toArray()[i]);
-            assertNull(intEmptySearchSet.toArray()[i]);
-        }
+//        Integer[] naturalEqualArray = new Integer[]{-8, 0, 1, 2, 3, 4, 5, 12, 14, 19, null, null, null,
+//                                                    null, null, null, null, null, null, null};
+//        Integer[] reversedEqualArray = new Integer[]{9, 6, 5, 3, -12, null, null, null, null, null};
+//
+//
+//        for( int i = 0; i < 20; i++) {
+//            assertEquals(naturalEqualArray[i], intNaturalSearchSet1.toArray()[i]);
+//        }
+//        for( int i = 0; i < 10; i++) {
+//            assertEquals(reversedEqualArray[i], intReversedSearchSet1.toArray()[i]);
+//            assertNull(intEmptySearchSet.toArray()[i]);
+//        }
     }
 }

@@ -3,7 +3,7 @@ package assignment03;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class BinarySearchSet<E> implements SortedSet, Iterable{
+public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E>{
 
     private E[] data_;
     private int size_, capacity_;
@@ -11,14 +11,14 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
     private boolean comparatorGiven_;
 
     public BinarySearchSet(){
-        data_ = (E[]) (new Object[10]);
-        capacity_ = 10;
+        data_ = (E[]) (new Object[5]);
+        capacity_ = 5;
         size_ = 0;
         comparatorGiven_ = false;
     }
     public BinarySearchSet(Comparator<? super E> comparator){
-        data_ = (E[]) (new Object[10]);
-        capacity_ = 10;
+        data_ = (E[]) (new Object[5]);
+        capacity_ = 5;
         size_ = 0;
         comparatorGiven_ = true;
         comparator_ = (Comparator<Object>) comparator;
@@ -31,12 +31,7 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      */
     @Override
     public Comparator comparator() {
-        if(comparatorGiven_){
-            return comparator_;
-        }
-        else {
-            return null;
-        }
+        return comparator_;
     }
 
     /**
@@ -44,7 +39,7 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      * @throws NoSuchElementException if the set is empty
      */
     @Override
-    public Object first() throws NoSuchElementException {
+    public E first() throws NoSuchElementException {
         if(size_ != 0) {
             return data_[0];
         }
@@ -58,7 +53,7 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      * @throws NoSuchElementException if the set is empty
      */
     @Override
-    public Object last() throws NoSuchElementException {
+    public E last() throws NoSuchElementException {
         if(size_ != 0) {
             return data_[size_ - 1];
         }
@@ -140,6 +135,7 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
 
             } while (start <= end);
 
+            // move the middle tracker depending on whether the new value needs to insert before or after
             if(compare(data_[middle], element) < 0){
                 middle ++;
             }
@@ -185,8 +181,8 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      */
     @Override
     public void clear() {
-        data_ = (E[]) new Object[10];
-        capacity_ = 10;
+        data_ = (E[]) new Object[5];
+        capacity_ = 5;
         size_ = 0;
     }
 
@@ -244,9 +240,7 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      */
     @Override
     public boolean isEmpty() {
-        if(size_ == 0)
-            return true;
-        return false;
+        return size_ == 0;
     }
 
     /**
@@ -255,7 +249,48 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      */
     @Override
     public Iterator iterator() {
-        return new SearchSetIterator();
+        return new Iterator<E>() {
+
+            private int pos_ = 0;
+            private boolean removeAvailable = false;
+
+            @Override
+            public boolean hasNext() {
+                return pos_ < size_;
+            }
+
+            @Override
+            public E next() {
+
+                if(hasNext()){
+                    pos_++;
+                    removeAvailable = true;
+                    return data_[pos_ - 1];
+                }
+                else{
+                    throw new NoSuchElementException();
+                }
+            }
+
+            @Override
+            public void remove() {
+                if(removeAvailable) {
+                    for (int i = pos_; i <= size_; i++) {
+                        data_[i - 1] = data_[i];
+                    }
+                    removeAvailable = false;
+                    size_--;
+                }
+                else{
+                    throw new IllegalStateException();
+                }
+            }
+
+            @Override
+            public void forEachRemaining(Consumer<? super E> action) {
+                Iterator.super.forEachRemaining(action);
+            }
+        };
     }
 
     /**
@@ -269,8 +304,8 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
         if(size_ == 0){
             return false;
         }
-        SearchSetIterator iter = new SearchSetIterator();
-        while(iter.pos_ < size_){
+        Iterator<E> iter = iterator();
+        while(iter.hasNext()){
             if(iter.next().equals(element)){
                 iter.remove();
                 return true;
@@ -307,10 +342,10 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
 
     /**
      * @return an array containing all of the elements in this set, in sorted
-     *         (ascending) order.
+     * (ascending) order.
      */
     @Override
-    public Object[] toArray() {
+    public E[] toArray() {
         return data_;
     }
 
