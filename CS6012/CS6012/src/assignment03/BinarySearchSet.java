@@ -126,32 +126,34 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
                 return true;
             }
 
-            // insert element at proper sorted location
-            for (int i = 0; i < size_; i++) {
+            int start = 0;
+            int end = size_ - 1;
+            int middle;
+            do {
+                // look at middle
+                middle = start + (end - start) / 2;
+                // look to the right if element is greater than middle, to the left if less than
+                if (compare(data_[middle], element) > 0)
+                    end = middle - 1;
+                else
+                    start = middle + 1;
 
-                // if the correct spot is found, insert element and shift array
-                if (compare(data_[i], element) >= 1) {
-                    E temp = data_[i];
-                    data_[i] = (E) element;
+            } while (start <= end);
 
-                    // shift the array
-                    for (int j = i + 1; j < size_ + 1; j++) {
-                        E tempNext = data_[j];
-                        data_[j] = temp;
-                        temp = tempNext;
-                    }
-                    size_++;
-                    return true;
-                }
-
-                // if the end is reached, add the element to the end
-                else if (i == size_ - 1) {
-                    data_[size_] = (E) element;
-                    size_++;
-                    break;
-                }
+            if(compare(data_[middle], element) < 0){
+                middle ++;
             }
+            E temp = data_[middle ];
+            data_[middle] = (E) element;
+            // shift the array
+            for (int i = middle + 1; i < size_ + 1; i++) {
+                E tempNext = data_[i];
+                data_[i] = temp;
+                temp = tempNext;
+            }
+            size_++;
             return true;
+
         }
         catch(ClassCastException e){
             return false;
@@ -194,19 +196,32 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
      */
     @Override
     public boolean contains(Object element) {
-        for(E el: data_){
-            try {
-                if (el.equals(element)) {
-                    return true;
-                }
-            }
-            catch(NullPointerException e){
-                if (el == element) {
-                    return true;
-                }
-            }
-        }
-        return false;
+
+        if(size_  == 0)
+            return false;
+        if(size_ == 1)
+            return compare(data_[0], element) == 0;
+
+        int start = 0;
+        int end = size_ - 1;
+
+        do {
+            // look at middle
+            int middle = start + (end - start) / 2;
+            //if middle is what is being looked for, return true
+            if (compare(data_[middle], element) == 0)
+                return true;
+            // look to the right if element is greater than middle, to the left if less than
+            if ( compare(data_[middle], element) > 0)
+                end = middle - 1;
+            else
+                start = middle + 1;
+
+        }while (start < end);
+        // check to see if the start and end finish at the element
+        if(start == end && compare(data_[start], element) == 0)
+            return true;
+    return false; // element not found, return false
     }
 
     /**
@@ -254,9 +269,8 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
         if(size_ == 0){
             return false;
         }
-
         SearchSetIterator iter = new SearchSetIterator();
-        while(iter.hasNext() && iter.pos_ < size_){
+        while(iter.pos_ < size_){
             if(iter.next().equals(element)){
                 iter.remove();
                 return true;
@@ -303,6 +317,7 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
     private class SearchSetIterator implements Iterator<E>{
 
         private int pos_ = 0;
+        private boolean removeAvailable = false;
 
         @Override
         public boolean hasNext() {
@@ -311,19 +326,29 @@ public class BinarySearchSet<E> implements SortedSet, Iterable{
 
         @Override
         public E next() {
+
             if(hasNext()){
                 pos_++;
+                removeAvailable = true;
                 return data_[pos_ - 1];
             }
-            return null;
+            else{
+                throw new NoSuchElementException();
+            }
         }
 
         @Override
         public void remove() {
-            for(int i = pos_; i <= size_; i++){
-                data_[ i - 1 ] = data_[ i ];
+            if(removeAvailable) {
+                for (int i = pos_; i <= size_; i++) {
+                    data_[i - 1] = data_[i];
+                }
+                removeAvailable = false;
+                size_--;
             }
-            size_--;
+            else{
+                throw new IllegalStateException();
+            }
         }
 
         @Override

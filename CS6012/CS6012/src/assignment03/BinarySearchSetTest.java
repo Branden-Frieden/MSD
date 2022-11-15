@@ -53,12 +53,18 @@ class BinarySearchSetTest {
     @Test
     void addIntegers() {
 
-        assert(intEmptySearchSet.add(35));
-        assert(!intNaturalSearchSet1.add(3));
-        assert(intNaturalSearchSet1.add(1000));
-        assert(!intNaturalSearchSet1.add(25.443));
-        assert(!intReversedSearchSet1.add(3));
-        assert(intReversedSearchSet1.add(1000));
+        assertTrue(intEmptySearchSet.add(35));
+        assertFalse(intNaturalSearchSet1.add(3));
+        assertTrue(intNaturalSearchSet1.add(1000));
+        assertTrue(intNaturalSearchSet1.add(-10));
+        assertEquals(-10, intNaturalSearchSet1.first());
+        assertEquals(1000, intNaturalSearchSet1.last());
+        assertFalse(intNaturalSearchSet1.add(25.443));
+        assertFalse(intReversedSearchSet1.add(3));
+        assertTrue(intReversedSearchSet1.add(1000));
+        assertTrue(intReversedSearchSet1.add(-500));
+        assertEquals(1000, intReversedSearchSet1.first());
+        assertEquals(-500, intReversedSearchSet1.last());
 
     }
 
