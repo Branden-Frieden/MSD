@@ -164,7 +164,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E>{
      * @return true if this set changed as a result of the call
      */
     @Override
-    public boolean addAll(Collection elements) {
+    public boolean addAll(Collection<? extends E> elements) {
         boolean changed = false;
         for(Object el: elements){
             if(add(el)){
@@ -226,7 +226,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E>{
      *         collection
      */
     @Override
-    public boolean containsAll(Collection elements) {
+    public boolean containsAll(Collection<? extends E> elements) {
         for(Object el: elements){
             if(!contains(el)){
                 return false;
@@ -322,7 +322,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E>{
      * @return true if this set changed as a result of the call
      */
     @Override
-    public boolean removeAll(Collection elements) {
+    public boolean removeAll(Collection<? extends E> elements) {
         boolean changed = false;
         for(Object el: elements){
             if(remove(el)){
