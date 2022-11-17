@@ -1,0 +1,149 @@
+package assignment04;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class SortUtilTest {
+    int initialPower = 8, max_power = 14, power;
+    ArrayList<Integer> best = SortUtil.generateBestCase((int) Math.pow(2, max_power + 4));
+    ArrayList<Integer> average = SortUtil.generateAverageCase((int) Math.pow(2, max_power + 4));
+    ArrayList<Integer> worst = SortUtil.generateWorstCase((int) Math.pow(2, max_power + 4));
+
+    IntComparator comparator = new IntComparator();
+
+    public class IntComparator implements Comparator<Integer> {
+
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return (o1 - o2);
+        }
+    }
+
+
+    @BeforeEach
+    void setup() {
+        power = initialPower;
+    }
+
+    @Test
+    void mergesort() {
+        for (int j = 0; j < 1000; j++) {
+            int testSize = 100;
+            ArrayList<Integer> testArray = SortUtil.generateAverageCase(testSize);
+            SortUtil.mergesort(testArray, comparator);
+            for (int i = 0; i < testSize; i++) {
+                assertEquals(i + 1, testArray.get(i));
+            }
+        }
+
+//        int loops = 3000;
+//        for (int k = 22; k <= 50; k+= 2) {
+//            SortUtil.setThreshold(k);
+//            for(power = initialPower; power <= max_power; power++){
+//                ArrayList<Integer> tempArray = new ArrayList<>();
+//                for(int i = 0; i < Math.pow(2,power); i++){
+//                    tempArray.add(average.get(i));
+//                }
+//
+//                long totalTime = 0;
+//                for(int i = 0; i < loops; i++){
+//                    long startTime = System.nanoTime();
+//                    SortUtil.mergesort(tempArray, comparator);
+//                    long endTime = System.nanoTime();
+//                    totalTime+= endTime - startTime;
+//                }
+//                long averageTime = totalTime / loops;
+//                System.out.println(averageTime);
+//            }
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//        }
+    }
+
+    @Test
+    void quicksort() {
+
+        for (int j = 0; j < 1000; j++) {
+            int testSize = 1000;
+            ArrayList<Integer> testArray = SortUtil.generateAverageCase(testSize);
+            SortUtil.quicksort(testArray, comparator, 3);
+            for (int i = 0; i < testSize; i++) {
+                assertEquals(i + 1, testArray.get(i));
+            }
+        }
+
+//        int loops = 3000;
+//        for (int strategy = 1; strategy <= 3; strategy++) {
+//            for(power = initialPower; power <= max_power + 4; power++){
+//                ArrayList<Integer> tempArray = new ArrayList<>();
+//                for(int i = 0; i < Math.pow(2,power); i++){
+//                    tempArray.add(average.get(i));
+//                }
+//
+//                long totalTime = 0;
+//                for(int i = 0; i < loops; i++){
+//                    long startTime = System.nanoTime();
+//                    SortUtil.quicksort(tempArray, comparator, strategy);
+//                    long endTime = System.nanoTime();
+//                    totalTime+= endTime - startTime;
+//                }
+//                long averageTime = totalTime / loops;
+//                System.out.println(averageTime);
+//            }
+//            System.out.println();
+//
+//        }
+    }
+
+    @Test
+    void mergeVSquick() {
+//        SortUtil.setThreshold(22);
+//        int loops = 3000;
+//
+//        for (power = initialPower; power <= max_power + 2; power++) {
+//            ArrayList<Integer> tempArray = new ArrayList<>();
+//            for (int i = 0; i < Math.pow(2, power); i++) {
+//                tempArray.add(worst.get(i));
+//            }
+//
+//            long totalTime = 0;
+//            for (int i = 0; i < loops; i++) {
+//                long startTime = System.nanoTime();
+//                SortUtil.mergesort(tempArray, comparator);
+//                long endTime = System.nanoTime();
+//                totalTime += endTime - startTime;
+//            }
+//            long averageTime = totalTime / loops;
+//            System.out.println(averageTime);
+//        }
+//
+//        System.out.println();
+//
+//        for(power = initialPower; power <= max_power + 2; power++){
+//                ArrayList<Integer> tempArray = new ArrayList<>();
+//                for(int i = 0; i < Math.pow(2,power); i++){
+//                    tempArray.add(worst.get(i));
+//                }
+//
+//                long totalTime = 0;
+//                for(int i = 0; i < loops; i++){
+//                    long startTime = System.nanoTime();
+//                    SortUtil.quicksort(tempArray, comparator, 1);
+//                    long endTime = System.nanoTime();
+//                    totalTime+= endTime - startTime;
+//                }
+//                long averageTime = totalTime / loops;
+//                System.out.println(averageTime);
+//            }
+    }
+}
+
+
+
+
