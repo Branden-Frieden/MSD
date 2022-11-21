@@ -13,7 +13,7 @@ class SortUtilTest {
     ArrayList<Integer> best = SortUtil.generateBestCase((int) Math.pow(2, max_power + 4));
     ArrayList<Integer> average = SortUtil.generateAverageCase((int) Math.pow(2, max_power + 4));
     ArrayList<Integer> worst = SortUtil.generateWorstCase((int) Math.pow(2, max_power + 4));
-
+    ArrayList<Integer> emptyTest;
     IntComparator comparator = new IntComparator();
 
     public class IntComparator implements Comparator<Integer> {
@@ -27,11 +27,18 @@ class SortUtilTest {
 
     @BeforeEach
     void setup() {
+
         power = initialPower;
+
+        emptyTest = new ArrayList<>();
     }
 
     @Test
     void mergesort() {
+
+
+        SortUtil.mergesort(emptyTest, comparator);
+
         for (int j = 0; j < 1000; j++) {
             int testSize = 100;
             ArrayList<Integer> testArray = SortUtil.generateAverageCase(testSize);
@@ -42,7 +49,7 @@ class SortUtilTest {
         }
 
 //        int loops = 3000;
-//        for (int k = 22; k <= 50; k+= 2) {
+//        for (int k = 0; k <= 47; k+= 7) {
 //            SortUtil.setThreshold(k);
 //            for(power = initialPower; power <= max_power; power++){
 //                ArrayList<Integer> tempArray = new ArrayList<>();
@@ -61,14 +68,13 @@ class SortUtilTest {
 //                System.out.println(averageTime);
 //            }
 //            System.out.println();
-//            System.out.println();
-//            System.out.println();
 //        }
     }
 
     @Test
     void quicksort() {
 
+        //SortUtil.quicksort(emptyTest, comparator, 1);
         for (int j = 0; j < 1000; j++) {
             int testSize = 1000;
             ArrayList<Integer> testArray = SortUtil.generateAverageCase(testSize);
@@ -103,44 +109,44 @@ class SortUtilTest {
 
     @Test
     void mergeVSquick() {
-//        SortUtil.setThreshold(22);
-//        int loops = 3000;
-//
-//        for (power = initialPower; power <= max_power + 2; power++) {
-//            ArrayList<Integer> tempArray = new ArrayList<>();
-//            for (int i = 0; i < Math.pow(2, power); i++) {
-//                tempArray.add(worst.get(i));
-//            }
-//
-//            long totalTime = 0;
-//            for (int i = 0; i < loops; i++) {
-//                long startTime = System.nanoTime();
-//                SortUtil.mergesort(tempArray, comparator);
-//                long endTime = System.nanoTime();
-//                totalTime += endTime - startTime;
-//            }
-//            long averageTime = totalTime / loops;
-//            System.out.println(averageTime);
-//        }
-//
-//        System.out.println();
-//
-//        for(power = initialPower; power <= max_power + 2; power++){
-//                ArrayList<Integer> tempArray = new ArrayList<>();
-//                for(int i = 0; i < Math.pow(2,power); i++){
-//                    tempArray.add(worst.get(i));
-//                }
-//
-//                long totalTime = 0;
-//                for(int i = 0; i < loops; i++){
-//                    long startTime = System.nanoTime();
-//                    SortUtil.quicksort(tempArray, comparator, 1);
-//                    long endTime = System.nanoTime();
-//                    totalTime+= endTime - startTime;
-//                }
-//                long averageTime = totalTime / loops;
-//                System.out.println(averageTime);
-//            }
+        SortUtil.setThreshold(35);
+        int loops = 3000;
+
+        for (power = initialPower; power <= max_power + 2; power++) {
+            ArrayList<Integer> tempArray = new ArrayList<>();
+            for (int i = 0; i < Math.pow(2, power); i++) {
+                tempArray.add(average.get(i));
+            }
+
+            long totalTime = 0;
+            for (int i = 0; i < loops; i++) {
+                long startTime = System.nanoTime();
+                SortUtil.mergesort(tempArray, comparator);
+                long endTime = System.nanoTime();
+                totalTime += endTime - startTime;
+            }
+            long averageTime = totalTime / loops;
+            System.out.println(averageTime);
+        }
+
+        System.out.println();
+
+        for(power = initialPower; power <= max_power + 2; power++){
+                ArrayList<Integer> tempArray = new ArrayList<>();
+                for(int i = 0; i < Math.pow(2,power); i++){
+                    tempArray.add(average.get(i));
+                }
+
+                long totalTime = 0;
+                for(int i = 0; i < loops; i++){
+                    long startTime = System.nanoTime();
+                    SortUtil.quicksort(tempArray, comparator, 1);
+                    long endTime = System.nanoTime();
+                    totalTime+= endTime - startTime;
+                }
+                long averageTime = totalTime / loops;
+                System.out.println(averageTime);
+            }
     }
 }
 

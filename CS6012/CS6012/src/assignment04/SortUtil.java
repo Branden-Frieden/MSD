@@ -39,6 +39,7 @@ public class SortUtil<T> {
 
         if(right - left < threshold_ ){
             insertionSort(arr, comparator, left, right);
+            return;
         }
 
         int one = left;
