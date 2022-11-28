@@ -50,9 +50,9 @@ function handleMessageFromWsCB( event ){
 }
 
 function handleKeyPressCB( event ){
+    console.log(event.type);
 
-
-    if( event.keyCode == 13) {
+    if( event.keyCode == 13 || event.type == "click") {
         event.preventDefault();
 
         if( !connected ){
@@ -97,12 +97,13 @@ let roomBox = document.getElementById("room");
 let messageBox = document.getElementById("message");
 let messages = document.getElementById( "messages" );
 let users = document.getElementById( "rooms" );
-
+let submit = document.getElementById( "submitBtn" );
 
 
 nameBox.addEventListener("keypress", handleKeyPressCB);
 roomBox.addEventListener("keypress", handleKeyPressCB);
 messageBox.addEventListener("keypress", handleKeyPressCB);
+submit.addEventListener("click", handleKeyPressCB);
 
 let connectedName;
 let connectedRoom;
