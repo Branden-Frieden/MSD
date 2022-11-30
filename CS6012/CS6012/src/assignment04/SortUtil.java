@@ -70,8 +70,8 @@ public class SortUtil<T> {
 
     }
 
-    public static <T> void quicksort(ArrayList<T> arr, Comparator<? super T> comparator, int strategy) {
-        quicksortRecursive(arr, comparator, 0, arr.size() - 1, strategy);
+    public static <T> void quicksort(ArrayList<T> arr, Comparator<? super T> comparator) {
+        quicksortRecursive(arr, comparator, 0, arr.size() - 1, 2);
 
     }
 
