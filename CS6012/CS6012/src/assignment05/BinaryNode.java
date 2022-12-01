@@ -17,25 +17,13 @@ public class BinaryNode<T> {
         data_ = object;
         parent_ = parent;
     }
-    public void setRight( BinaryNode<T> newRight){
-        right_ = newRight;
-    }
-    public void setLeft( BinaryNode<T> newLeft){
-        left_ = newLeft;
-    }
 
     public boolean hasLeft(){
-        if(left_ == null){
-            return false;
-        }
-        return true;
+        return left_ != null;
     }
 
     public boolean hasRight(){
-        if(right_ == null){
-            return false;
-        }
-        return true;
+        return right_ != null;
     }
 
 }

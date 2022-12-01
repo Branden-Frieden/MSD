@@ -117,16 +117,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
     public boolean contains(T item) {
         if(root == null)
             return false;
+        if(item == null)
+            throw new NullPointerException();
 
         // start at root
         BinaryNode<T> currentNode = root;
 
-        // use to store the comparator value
-        int compareToValue;
-
         while(true){
             // compare the adding value to the current node
-            compareToValue = item.compareTo(currentNode.data_);
+            int compareToValue = item.compareTo(currentNode.data_);
 
             // check current node for correct value
             if(compareToValue == 0)
@@ -201,10 +200,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
      */
     @Override
     public boolean isEmpty() {
-        if(root == null) {
-            return true;
-        }
-        return false;
+        return root == null;
     }
 
     /**
@@ -242,7 +238,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
      * @return the node that has the item as its data
      *
      */
-    public BinaryNode<T> findNode(T item){
+    private BinaryNode<T> findNode(T item){
         // start at root
         BinaryNode<T> currentNode = root;
         // use to store the comparator value
@@ -260,8 +256,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
                 currentNode = currentNode.right_;
 
             // if item is less than current node, go left if available, else, return false
-            else if(compareToValue < 0)
-                currentNode = currentNode.left_;
+            else currentNode = currentNode.left_;
         }
     }
     /**
@@ -272,17 +267,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
      *          - the node whose predecessor we will return
      *
      * @return the predecessor of the node passed to the method
-     *
-     * @throws NullPointerException
-     *           if the item is null
      */
-public BinaryNode<T> findPredecessor(BinaryNode<T> node){
-        BinaryNode predecessorNode = node.left_;
+    private BinaryNode<T> findPredecessor(BinaryNode<T> node){
+        BinaryNode<T> predecessorNode = node.left_;
         while(predecessorNode.hasRight()){
             predecessorNode = predecessorNode.right_;
         }
         return predecessorNode;
-}
+    }
 
 
     /**
@@ -380,12 +372,11 @@ public BinaryNode<T> findPredecessor(BinaryNode<T> node){
     @Override
     public ArrayList<T> toArrayList() {
         ArrayList<T> output = new ArrayList<>();
-
-        output = inOrderTraversal(root, output);
+        inOrderTraversal(root, output);
         return output;
     }
 
-    private ArrayList<T> inOrderTraversal(BinaryNode<T> node, ArrayList<T> output){
+    private void inOrderTraversal(BinaryNode<T> node, ArrayList<T> output){
 
         if(node.hasLeft())
             inOrderTraversal(node.left_, output);
@@ -395,6 +386,6 @@ public BinaryNode<T> findPredecessor(BinaryNode<T> node){
         if(node.hasRight())
             inOrderTraversal(node.right_, output);
 
-        return output;
+
     }
 }

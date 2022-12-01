@@ -56,7 +56,12 @@ class BinarySearchTreeTest {
     @Test
     void add() {
         assertTrue(emptyDictionary.add("kerfuffle"));
+
         assertTrue(fullDictionary.add("kerfuffle"));
+
+        assertFalse(emptyDictionary.add("kerfuffle"));
+        assertFalse(fullDictionary.add("kerfuffle"));
+
         assertTrue(emptyDictionary.contains("kerfuffle"));
         assertTrue(fullDictionary.contains("kerfuffle"));
     }
@@ -71,6 +76,13 @@ class BinarySearchTreeTest {
 
     @Test
     void contains() {
+        try{
+            fullDictionary.contains(null);
+            fail();
+        } catch( NullPointerException e ){}
+
+        assertThrows(NullPointerException.class, () -> {fullDictionary.contains(null);});
+
         assertTrue(fullDictionary.contains("luck"));
         assertFalse(emptyDictionary.contains("luck"));
         assertFalse(fullDictionary.contains("kerfuffle"));
@@ -85,7 +97,6 @@ class BinarySearchTreeTest {
         words.add("kerfuffle");
 
         assertFalse(fullDictionary.containsAll(words));
-
     }
 
     @Test
@@ -118,6 +129,12 @@ class BinarySearchTreeTest {
     void remove() {
         fullDictionary.remove("luck");
         assertFalse(fullDictionary.contains("luck"));
+        try{
+            emptyDictionary.remove(null);
+            fail();
+        } catch( NullPointerException e ){}
+
+
     }
 
     @Test
