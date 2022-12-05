@@ -20,7 +20,6 @@ class ChainingHashTableTest {
         fullTable = new ChainingHashTable(100, new GoodHashFunctor());
         emptyTable = new ChainingHashTable(100, new GoodHashFunctor());
         strings = new ArrayList<>();
-        ArrayList<String> words = new ArrayList<String>();
         File file = new File("dictionary.txt");
         try (Scanner fileInput = new Scanner(file)) {
 
@@ -29,7 +28,6 @@ class ChainingHashTableTest {
             while (fileInput.hasNext()) {
                 String s = fileInput.next();
                 if (!s.equals("")) {
-                    words.add(s.toLowerCase());
                     strings.add(s.toLowerCase());
                 }
             }
@@ -38,7 +36,7 @@ class ChainingHashTableTest {
             System.err.println("File " + file + " cannot be found.");
         }
 
-        fullTable.addAll( words );
+        fullTable.addAll( strings );
     }
 
     @Test
@@ -78,8 +76,11 @@ class ChainingHashTableTest {
     @Test
     void clear() {
         assertFalse(fullTable.add("abandoned"));
+        assertEquals(2914, fullTable.size());
         fullTable.clear();
+        assertEquals(0, fullTable.size());
         assertTrue(fullTable.add("abandoned"));
+
     }
 
     @Test
@@ -126,10 +127,11 @@ class ChainingHashTableTest {
     void remove() {
 
         assertTrue(fullTable.remove("abandoned"));
+        assertEquals(2913, fullTable.size());
         assertFalse(fullTable.contains("abandoned"));
         assertFalse(fullTable.remove("abandoned"));
         assertFalse(fullTable.remove(null));
-
+        assertEquals(2913, fullTable.size());
     }
 
     @Test

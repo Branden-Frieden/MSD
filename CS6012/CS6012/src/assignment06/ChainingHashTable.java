@@ -73,6 +73,7 @@ public class ChainingHashTable implements Set<String>{
         for(int i = 0; i < capacity_; i++){
             storage[i] = new LinkedList<>();
         }
+        size_ = 0;
     }
 
     /**
@@ -133,9 +134,8 @@ public class ChainingHashTable implements Set<String>{
             return false;
 
         int hash = functor_.hash( item ) % capacity_;
-        storage[hash].remove( item );
         size_--;
-        return true;
+        return storage[hash].remove( item );
     }
 
     /**
