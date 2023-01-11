@@ -1,0 +1,23 @@
+CXXSOURCE = pants.o caps.o clothing.o main.o
+CXXFLAGS = --std=c++14
+HEADERS = pants.h caps.h clothing.h
+
+all:build
+build: $(CXXSOURCE)
+	$(CXX) $(CXXFLAGS) -o build $(CXXSOURCE)
+pants.o: pants.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c pants.cpp
+caps.o: caps.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c caps.cpp
+clothing.o: clothing.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c clothing.cpp
+main.o: main.cpp $(HEADERS)
+	$(CXX) $(CXXFLAGS) -c main.cpp
+
+.PHONY: clean printM
+
+clean:
+	rm -f *.o *.out program
+printM:
+	echo $(CXXSOURCE)
+
