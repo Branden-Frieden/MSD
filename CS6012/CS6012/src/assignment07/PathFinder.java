@@ -3,9 +3,8 @@ package assignment07;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.nio.charset.MalformedInputException;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class PathFinder {
@@ -22,19 +21,20 @@ public class PathFinder {
      *          - the name and location of the input file
      *
      * @param outputFile
-     *       - the name and location of the ouptut file
-
+     *       - the name and location of the output file
      */
-    public static void solveMaze(String inputFile, String outputFile) throws FileNotFoundException {
+    public static void solveMaze(String inputFile, String outputFile) throws FileNotFoundException, MalformedInputException {
 
         //-------------------------- generate the graph from the input file --------------------------------
         // Initialize variables
         Scanner input = new Scanner(new FileInputStream(inputFile));
         String[] dimensions = input.nextLine().split(" ");
+        if(dimensions.length != 2)
+            throw new MalformedInputException(1);
         int height = Integer.parseInt(dimensions[0]);
         int width = Integer.parseInt(dimensions[1]);
-        int x = 0;
-        int y = 0;
+        int col;
+        int row = 0;
 
         // nodes to keep track of
         PathNode startNode = null;
@@ -50,9 +50,9 @@ public class PathFinder {
             char[] nextLine = input.nextLine().toCharArray();
 
             // return above tracker down 1 and left
-            if( y == 1 )
+            if( row == 1 )
                 aboveNode = firstNode;
-            else if( y > 1 ){
+            else if( row > 1 ){
                 aboveNode = prevNode;
                 while(aboveNode.neighbors.get( 0 ) != null){
                     aboveNode = aboveNode.neighbors.get( 0 );
@@ -62,9 +62,9 @@ public class PathFinder {
             prevNode = null;
 
             // loop through the line of characters
-            for(x = 0; x < width; x++) {
+            for(col = 0; col < width; col++) {
                 // create node
-                PathNode newNode = new PathNode(nextLine[x], x, y);
+                PathNode newNode = new PathNode(nextLine[col], col, row);
 
                 // track very first node created
                 if(first) {
@@ -73,9 +73,9 @@ public class PathFinder {
                 }
 
                 // check for start and end nodes
-                if(nextLine[x] == 'S')
+                if(nextLine[col] == 'S')
                     startNode = newNode;
-                else if(nextLine[x] == 'G')
+                else if(nextLine[col] == 'G')
                     endNode = newNode;
 
 
@@ -96,7 +96,7 @@ public class PathFinder {
                 prevNode = newNode;
             }
             // track the line we are on
-            y++;
+            row++;
         }
 
 
@@ -155,8 +155,8 @@ public class PathFinder {
         // print nodes to string
         String output = "";
         currentNode = firstNode;
-        for(int j = 0; j < height; j++){
-            for(int i = 0; i < width; i++){
+        for(row = 0; row < height; row++){
+            for(col = 0; col < width; col++){
                 output += currentNode.data;
                 if(currentNode.neighbors.get( 2 ) != null) {
                     currentNode = currentNode.neighbors.get(2);
