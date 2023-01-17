@@ -1,0 +1,31 @@
+import os
+
+# find file in parent directory and open
+parentDirectory = os.path.dirname(os.path.abspath(__file__))
+input_file = open(os.path.join(parentDirectory, "ping_times"))
+
+# read the file lines
+lines = input_file.readlines()
+
+# create output file for exporting data
+output_file = open(os.path.join(parentDirectory, "AveragePingDelay"), "w+")
+
+times = []
+first = True
+# go through each line of the document
+for line in lines:
+    if first:
+        first = False
+        continue
+    if line == "\n":
+        break
+    empty, time = line.split("time=")
+    time, empty = time.split(" ")
+    times.append(float(time))
+
+no_queue_time = min(times)
+times = [x - no_queue_time for x in times]
+averageRoundTripQueueingTime = str(sum(times) / len(times))
+output_file.write(f'{averageRoundTripQueueingTime:.4} ms')
+
+

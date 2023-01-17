@@ -1,0 +1,14 @@
+What is the average queuing delay experienced by the 1000 byte packets?
+
+Lowest time: 2.8 ~ 0 queuing time
+(8.2 + 7.2 + 0 + .2 + 2.7)/5 = 3.66 ms
+
+What are the reasonable estimates of transmission and propagation delays experienced by a packet of size 600 bytes sent through the link K?
+
+propagation delay is so small it is basically 0
+
+transmission delay: about 2.8 seconds assuming that queuing and propagation delay are about 0 for the lowest time in the set
+
+Suppose one of the three traceroute delay values between the source and a given router hop turns out to be unusually high. What are two possible causes for this unusually high delay?
+
+Could be caused by a packet getting corrupted needing it to be sent again or because the router was simply had an influx of traffic at that moment

@@ -1,0 +1,46 @@
+import matplotlib.pyplot as plt
+import os
+
+# find files in parent directory and open
+parentDirectory = os.path.dirname(os.path.abspath(__file__))
+in_file1 = open(os.path.join(parentDirectory, "output1"))
+in_file2 = open(os.path.join(parentDirectory, "output2"))
+
+#store in files in list
+in_files = [in_file1, in_file2]
+
+# initiate lists to hold data
+addresses_lists = []
+times_lists = []
+
+# go through all input files
+for in_file in in_files:
+    addresses = []
+    times = []
+    lines = in_file.readlines()
+    
+    for line in lines:
+        if line == "\n":
+            continue
+        # split into address and time, put into lists
+        address, time, empty = line.split(" ")
+        addresses.append(address)
+        times.append(float(time))
+    # store files list into overall list
+    addresses_lists.append(addresses)
+    times_lists.append(times)
+
+# Plot 
+fig, ax = plt.subplots()
+for set in range(len(addresses_lists)):
+    plt.plot(range(len(addresses_lists[set])), times_lists[set])
+    ax.set_xticklabels(addresses_lists[set])
+plt.xlabel("IP Addresses")
+
+fig.autofmt_xdate()
+plt.ylabel("Average Delay")
+plt.savefig(os.path.join(parentDirectory, "traceroute_graph.pdf"))
+plt.show()
+
+
+
