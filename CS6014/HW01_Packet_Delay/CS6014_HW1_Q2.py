@@ -31,7 +31,8 @@ for line in lines:
 
         if(char == '('):
             startParenthases = True
-
+        
+        # After the end parenthases, look for numbers or '.', this is the time, go until the m in ms
         if(endParenthases):
             if(char.isnumeric() or char == '.'):
                 time += char
@@ -39,13 +40,10 @@ for line in lines:
                 times.append(float(time))
                 time = ""
         
+    # if the address is long enough to be a real address, write to output file
     if(len(address) > 8):
         output_file.write("\n")
         output_file.write(address)
         averageDelay = str(sum(times) / len(times))
         output_file.write(" ")
         output_file.write(f'{averageDelay:.4} ms')
-
-    
-
-

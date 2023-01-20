@@ -1,0 +1,89 @@
+Q1:
+#include <cstdio>
+int add(int a, int b){
+        return a+b;
+}
+
+int main(){
+        printf("%d", add(3,1));
+        return 0;
+}
+
+
+
+
+Q2:
+add(int, int):
+        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp-4], edi
+        mov     DWORD PTR [rbp-8], esi
+        mov     edx, DWORD PTR [rbp-4]
+        mov     eax, DWORD PTR [rbp-8]
+        add     eax, edx
+        pop     rbp
+        ret
+.LC0:
+        .string "%d"
+main:
+        push    rbp
+        mov     rbp, rsp
+        mov     esi, 1
+        mov     edi, 3
+        call    add(int, int)
+        mov     esi, eax
+        mov     edi, OFFSET FLAT:.LC0
+        mov     eax, 0
+        call    printf
+        mov     eax, 0
+        pop     rbp
+        ret
+
+Q3:
+rbp is pushed to make the top of the stack
+The rep is moved the the same location as rbp
+1 is stored into esi register
+3 is stored into edi register
+Call add moves current instruction to add function
+Pushes rbp to new location for function stack
+Moves rsp to the new rbp location
+Stores edi to stack memory
+Stores esi to stack memory
+Moves val stored at rbp-4 to edx
+Moves val stored at rbp-8 to eax
+Adds edx to eax
+Pops rbp to return it to mains location
+Returns
+Moves value at eax to esi
+Moves the string stored at .LC0 to edi
+Stores 0 in eax for sys call
+Calls printf to display what's in edi
+Put 0 into eax for return
+Pops rbp to move it back up
+Returns
+
+Q4:
+add(int, int):
+        lea     eax, [rdi+rsi]
+        ret
+.LC0:
+        .string "%d"
+main:
+        sub     rsp, 8
+        mov     esi, 4
+        mov     edi, OFFSET FLAT:.LC0
+        xor     eax, eax
+        call    printf
+        xor     eax, eax
+        add     rsp, 8
+        ret
+
+Q5:
+The new assembly is much shorter, this changed because its now being optimized with more complex instructions that allow multiple lines of assembly code to be combined.
+
+The -O3 flag is the level of optimization that the assembly code goes through.
+
+
+
+
+
