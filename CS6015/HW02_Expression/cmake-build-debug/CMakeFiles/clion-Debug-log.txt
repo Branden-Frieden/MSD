@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/brandenfrieden/MSD/CS6010/myGithubRepo/CS6015/HW02_Expression -B /Users/brandenfrieden/MSD/CS6010/myGithubRepo/CS6015/HW02_Expression/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/brandenfrieden/MSD/CS6010/myGithubRepo/CS6015/HW02_Expression/cmake-build-debug
