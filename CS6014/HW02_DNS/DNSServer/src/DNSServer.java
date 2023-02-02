@@ -1,17 +1,15 @@
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.io.*;
 import java.net.InetAddress;
-import java.net.Socket;
 
 public class DNSServer {
-    InputStream inputStream;
-
     public static void main(String[] args) throws IOException {
-
-        DatagramSocket socket = new DatagramSocket(6969);
-        byte[] data = new byte[600];
+        DNSCache cache = new DNSCache();
+        DatagramSocket socket = new DatagramSocket(8053);
+        byte[] data = new byte[512];
+        byte[] returnData = new byte[512];
 
         boolean done = false;
         while( !done ){
@@ -20,14 +18,36 @@ public class DNSServer {
             socket.receive(packet);
             data = packet.getData();
 
-            DNSMessage message = DNSMessage.decodeMessage(data);
+            System.out.println("got data");
+            DNSMessage clientMessage = DNSMessage.decodeMessage(data);
+            System.out.println("decoded message");
+            DNSMessage response;
+            if(cache.query(clientMessage.questions_[0])){
+                response = DNSMessage.buildResponse(clientMessage, new DNSRecord[]{cache.getValue(clientMessage.questions_[0])});
+            }
+            else {
+                DatagramPacket packetToGoogle = new DatagramPacket(data, data.length, InetAddress.getByName("8.8.8.8"), 53);
+                socket.send(packetToGoogle);
 
 
+                DatagramPacket returnPacket = new DatagramPacket(returnData, returnData.length);
+                socket.receive(returnPacket);
+                returnData = returnPacket.getData();
 
+                response = DNSMessage.decodeMessage(returnData);
+
+                cache.store(clientMessage.questions_[0], response.anRecords_[0]);
+
+                DatagramPacket sendToClientPacket = new DatagramPacket(returnData, returnData.length, packet.getAddress(), packet.getPort());
+                socket.send( sendToClientPacket );
+                continue;
+            }
+
+            byte[] DataToSendToClient = response.toBytes();
+
+            System.out.println(packet.getPort());
+            DatagramPacket sendToClientPacket = new DatagramPacket(DataToSendToClient, DataToSendToClient.length, packet.getAddress(), packet.getPort());
+            socket.send( sendToClientPacket );
         }
-
-
     }
-
-
 }
