@@ -45,6 +45,7 @@ public class DNSQuestion {
             stream.writeBytes(offsetBytes);
 
         }else{
+            domainNameLocations.put(qName_.toString(), 12);
             for(int i = 0; i < qName_.length; i++){
                 stream.write( (byte) (qName_[i].length()) );
 

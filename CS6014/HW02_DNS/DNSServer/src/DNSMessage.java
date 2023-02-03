@@ -152,6 +152,13 @@ public class DNSMessage {
         for(DNSQuestion question: questions_){
             question.writeBytes(outputStream, domainNameLocations);
         }
+        for(DNSRecord record: anRecords_){
+            record.writeBytes(outputStream, domainNameLocations);
+        }
+
+        for(DNSRecord record: nsRecords_){
+            record.writeBytes(outputStream, domainNameLocations);
+        }
 
         for(DNSRecord record: arRecords_){
             record.writeBytes(outputStream, domainNameLocations);

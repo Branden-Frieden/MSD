@@ -18,9 +18,7 @@ public class DNSServer {
             socket.receive(packet);
             data = packet.getData();
 
-            System.out.println("got data");
             DNSMessage clientMessage = DNSMessage.decodeMessage(data);
-            System.out.println("decoded message");
             DNSMessage response;
             if(cache.query(clientMessage.questions_[0])){
                 response = DNSMessage.buildResponse(clientMessage, new DNSRecord[]{cache.getValue(clientMessage.questions_[0])});
@@ -35,8 +33,9 @@ public class DNSServer {
                 returnData = returnPacket.getData();
 
                 response = DNSMessage.decodeMessage(returnData);
-
-                cache.store(clientMessage.questions_[0], response.anRecords_[0]);
+                if(response.anRecords_.length >= 1){
+                    cache.store(clientMessage.questions_[0], response.anRecords_[0]);
+                }
 
                 DatagramPacket sendToClientPacket = new DatagramPacket(returnData, returnData.length, packet.getAddress(), packet.getPort());
                 socket.send( sendToClientPacket );
@@ -45,7 +44,6 @@ public class DNSServer {
 
             byte[] DataToSendToClient = response.toBytes();
 
-            System.out.println(packet.getPort());
             DatagramPacket sendToClientPacket = new DatagramPacket(DataToSendToClient, DataToSendToClient.length, packet.getAddress(), packet.getPort());
             socket.send( sendToClientPacket );
         }

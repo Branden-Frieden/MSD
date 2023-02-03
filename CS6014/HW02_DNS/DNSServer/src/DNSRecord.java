@@ -49,7 +49,7 @@ public class DNSRecord {
     }
 
     boolean isExpired(){
-        return (creationDate_ + TTL_ < Instant.now().getEpochSecond());
+        return (Instant.now().getEpochSecond() > creationDate_ + TTL_);
     }
 
     void writeBytes(ByteArrayOutputStream stream, HashMap<String, Integer> domainNameLocations){
