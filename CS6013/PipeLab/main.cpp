@@ -7,13 +7,14 @@ int main(int argc, char *argv[]){
 
     int fd[2];
     if(pipe(fd) < 0){
-        std::cout << "error in opening pipe";
-        return -1;
+        perror("error in opening pipe");
+        exit(1);
     }
     int rc = fork();
 
     if(rc < 0){
-        std::cout << "error\n";
+        perror("error in forking");
+        exit(1);
     } else if(rc == 0){
 
         close(fd[1]);
@@ -25,7 +26,10 @@ int main(int argc, char *argv[]){
         close(fd[0]);
 
     } else{
-
+        if(argc < 2){
+            perror("no printable argument given");
+            exit(1);
+        }
         close(fd[0]);
         int size = strlen(argv[1]);
         write(fd[1], &size , sizeof(size));
