@@ -37,11 +37,17 @@ int main(int argc, char *argv[]) {
                 // change input/output
                 dup2(commands[i].fdStdout, 1);
                 dup2(commands[i].fdStdin, 0);
-
+                if(i > 0){
+                    close(commands[i-1].fdStdout);
+                }
                 execvp(commands[i].exec.c_str(), const_cast<char *const *>(commands[i].argv.data()));
             } else {
+                if(i > 0){
+                    close(commands[i-1].fdStdout);
+                }
                 // in parent, wait
                 wait(NULL);
+
             }
         }
 
@@ -51,6 +57,7 @@ int main(int argc, char *argv[]) {
             if(commands[i].fdStdin != 0)
                 close(commands[i].fdStdin);
         }
+
     }
     return 0;
 }

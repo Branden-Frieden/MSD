@@ -1,5 +1,5 @@
 #include "shelpers.hpp"
-
+#include <unistd.h>
 /*
   text handling functions
  */
@@ -81,7 +81,7 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
   int first = 0;
   int last = std::find(tokens.begin(), tokens.end(), "|") - tokens.begin();
   bool error = false;
-
+  int fd[2];
 
   for(int i = 0; i < ret.size(); ++i){
 	if((tokens[first] == "&") || (tokens[first] == "<") ||
@@ -120,11 +120,11 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
 	  
 	}
 	if(i > 0) {
-        std::string pipeName = "pipe" + std::to_string(i);
-        mkfifo(pipeName.c_str(), 0666);
-        int pipe = open(pipeName.c_str(), O_RDWR, 0666);
-        ret[i - 1].fdStdout = pipe;
-        ret[i].fdStdin = pipe;
+        if (pipe(fd) < 0)
+            exit(1);
+
+        ret[i - 1].fdStdout = fd[1];
+        ret[i].fdStdin = fd[0];
     }
 	//exec wants argv to have a nullptr at the end!
 	ret[i].argv.push_back(nullptr);
