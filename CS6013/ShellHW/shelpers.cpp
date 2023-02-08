@@ -111,8 +111,7 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
 		    assert(false);
 
 	  } else if(tokens[j] == "&"){
-		//Fill this in if you choose to do the optional "background command" part
-		assert(false);
+		ret[i].background=true;
 	  } else {
 		//otherwise this is a normal command line argument!
 		ret[i].argv.push_back(tokens[j].c_str());
