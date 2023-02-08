@@ -29,6 +29,15 @@ int main(int argc, char *argv[]) {
 
         // loop through commands
         for (int i = 0; i < commands.size(); i++) {
+
+            if(commands[i].exec == "cd"){
+                if(commands[i].argv.size() > 2){
+                    chdir(commands[i].argv[1]);
+                } else
+                    chdir(getenv("HOME"));
+                continue;
+            }
+
             int rc = fork();
             if (rc < 0) {
                 std::cout << "fork failed";
