@@ -68,13 +68,18 @@ std::ostream& operator<<(std::ostream& outs, const Command& c){
   return outs;
 }
 
+// closes fileDescriptors for the given command vector
+void closeFileDescriptors(std::vector<Command> commands){
+    // close all the pipes
+    for (int i = 0; i < commands.size(); i++) {
+        if(commands[i].fdStdout != 1)
+            close(commands[i].fdStdout);
+        if(commands[i].fdStdin != 0)
+            close(commands[i].fdStdin);
+    }
+}
+
 //returns an empty vector on error
-/*
-
-  You'll need to fill in a few gaps in this function and add appropriate error handling
-  at the end.
-
- */
 std::vector<Command> getCommands(const std::vector<std::string>& tokens){
   std::vector<Command> ret(std::count(tokens.begin(), tokens.end(), "|") + 1);  //1 + num |'s commands
 
@@ -92,7 +97,7 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
 
 	ret[i].exec = tokens[first];
 	ret[i].argv.push_back(tokens[first].c_str()); //argv0 = program name
-	std::cout << "exec start: " << ret[i].exec << std::endl;
+	std::cout << "\texec start: " << ret[i].exec << std::endl;
 	ret[i].fdStdin = 0;
 	ret[i].fdStdout = 1;
 	ret[i].background = false;
@@ -111,7 +116,14 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
 		    assert(false);
 
 	  } else if(tokens[j] == "&"){
-		ret[i].background=true;
+            for(int k = 0; k <= i; k++) {
+                ret[k].background = true;
+            }
+            if (pipe(fd) < 0)
+                exit(1);
+
+            ret[ret.size() - 1].outputPipe[0] = fd[0];
+            ret[ret.size() - 1].outputPipe[1] = fd[1];
 	  } else {
 		//otherwise this is a normal command line argument!
 		ret[i].argv.push_back(tokens[j].c_str());

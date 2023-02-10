@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <csignal>
 #include <filesystem>
+#include <fstream>
 
 int main(int argc, char *argv[]) {
     // initialize variables
@@ -14,8 +15,12 @@ int main(int argc, char *argv[]) {
     std::vector<std::string> tokens;
     std::string parsed;
     std::vector<int> children;
+    std::vector<int> childOutputFiles;
     std::cout << std::__fs::filesystem::current_path() << " $ ";
     fflush(stdout);
+
+
+
     while (getline(std::cin, inputString)) {
         // check for exit command
         if(inputString == "exit"){
@@ -25,16 +30,31 @@ int main(int argc, char *argv[]) {
         // check if background processes have finished
         for(std::vector<int>::iterator it = children.begin(); it < children.end(); it++) {
             if (0 != kill((pid_t) *it, 0)) {
-                std::cout << "Process " << *it << " has exited\n";
+                std::cout << "Process " << *it << " has exited\n \tOutput:\n";
                 children.erase(it);
-                fflush(stdout);
+                int secondFork = fork();
+
+                if (secondFork == 0) {
+                    std::string outputString;
+
+                    dup2(childOutputFiles[it - children.begin()], 0);
+                    while (std::cin >> outputString) {
+                        std::cout << outputString << "\n";
+                    }
+                    exit(1);
+                } else{
+                    wait(NULL);
+                }
+
+                close(childOutputFiles[it - children.begin()]);
+                childOutputFiles.erase(childOutputFiles.begin() + (it - children.begin()));
             }
         }
 
         // pull inputString into stringstream
         std::stringstream input_stringstream(inputString);
         // empty tokens
-        tokens = {};
+        tokens.clear();
 
         // parse input string by spaces, add to tokens vector
         while (getline(input_stringstream, parsed, ' ')) {
@@ -60,22 +80,36 @@ int main(int argc, char *argv[]) {
                 continue;
             }
 
+
+
             //fork
             int rc = fork();
             if (rc < 0) {
                 std::cout << "fork failed";
                 exit(1);
             } else if (rc == 0) {
+
+
                 // change input/output
-                dup2(commands[i].fdStdout, 1);
+                if(commands[i].background && i == commands.size() - 1){
+                    close(commands[i].outputPipe[0]);
+                    dup2(commands[i].outputPipe[1], 1);
+                    close(commands[i].outputPipe[1]);
+                } else {
+                    dup2(commands[i].fdStdout, 1);
+                }
                 dup2(commands[i].fdStdin, 0);
+
                 //close previous commands pipe to allow EOF signal to fire
                 if(i > 0){
                     close(commands[i-1].fdStdout);
                 }
                 // execute command
                 execvp(commands[i].exec.c_str(), const_cast<char *const *>(commands[i].argv.data()));
+
+
             } else {
+
                 //close previous commands pipe to allow EOF signal to fire
                 if(i > 0){
                     close(commands[i-1].fdStdout);
@@ -83,21 +117,23 @@ int main(int argc, char *argv[]) {
 
                 // in parent, wait if not background, else, save pid
                 if(commands[i].background) {
-                    children.push_back(rc);
-                } else
                     wait(NULL);
+                    if (i == commands.size() - 1) {
+                        close(commands[i].outputPipe[1]);
+                        children.push_back(rc);
+                        childOutputFiles.push_back(commands[i].outputPipe[0]);
+                    }
+                } else {
+                    //wait(NULL);
+                    waitpid(rc, NULL, 0);
+
+                }
             }
         }
 
-        // close all the pipes
-        for (int i = 0; i < commands.size(); i++) {
-            if(commands[i].fdStdout != 1)
-                close(commands[i].fdStdout);
-            if(commands[i].fdStdin != 0)
-                close(commands[i].fdStdin);
-        }
+        closeFileDescriptors(commands);
 
-        std::cout << std::__fs::filesystem::current_path() << " $ ";;
+        std::cout << std::__fs::filesystem::current_path() << " $ ";
         fflush(stdout);
     }
     return 0;

@@ -21,12 +21,14 @@ struct Command{
   //Also, argv should end with a nullptr!
   std::vector<const char*> argv; 
   int fdStdin, fdStdout;
+  int outputPipe[2] = {0, 0};
   bool background;
+
 };
 //useful for debugging (implemented for you)
 std::ostream& operator<<(std::ostream& outs, const Command& c);
 
-
+void closeFileDescriptors(std::vector<Command> commands);
 
 //Read this function.  You'll need to fill in a few parts to implement
 //I/O redirection and (possibly) backgrounded commands.
