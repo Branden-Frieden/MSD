@@ -39,6 +39,7 @@ int main(int argc, char *argv[]){
             exit(1);
         }
         close(fd[0]);
+
         // send size of message
         int size = strlen(argv[1]);
         write(fd[1], &size , sizeof(size));
