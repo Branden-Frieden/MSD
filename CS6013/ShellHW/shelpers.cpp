@@ -103,19 +103,19 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
 	ret[i].background = false;
 
 	for(int j = first + 1; j < last; ++j){
-        if(tokens[j] == ">" || tokens[j] == "<" ){
-		//I/O redirection
-        if(i == first || i == ret.size() - 1) {
-            if (tokens[j] == "<") {
-                ret[i].fdStdin = open(tokens[j + 1].c_str(), O_RDONLY);
-            } else if (tokens[j] == ">") {
-                ret[i].fdStdout = open(tokens[j + 1].c_str(), O_TRUNC | O_WRONLY);
+        if(tokens[j] == ">" || tokens[j] == "<" ) {
+            //I/O redirection
+            if (i == first && tokens[j] == "<"|| i == ret.size() - 1 && tokens[j] == ">") {
+                if (tokens[j] == "<") {
+                    ret[i].fdStdin = open(tokens[j + 1].c_str(), O_RDONLY);
+                } else if (tokens[j] == ">") {
+                    ret[i].fdStdout = open(tokens[j + 1].c_str(), O_TRUNC | O_WRONLY);
+                }
+                j++;
+            } else {
+                perror("input or output file not allowed outside of first/last designation");
             }
-            j++;
-        } else
-		    assert(false);
-
-	  } else if(tokens[j] == "&"){
+        } else if(tokens[j] == "&"){
             for(int k = 0; k <= i; k++) {
                 ret[k].background = true;
             }
@@ -131,9 +131,9 @@ std::vector<Command> getCommands(const std::vector<std::string>& tokens){
 	  
 	}
 	if(i > 0) {
-        if (pipe(fd) < 0)
-            exit(1);
-
+        if (pipe(fd) < 0) {
+            perror("error opening pipes");
+        }
         ret[i - 1].fdStdout = fd[1];
         ret[i].fdStdin = fd[0];
     }
