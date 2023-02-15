@@ -1,0 +1,7 @@
+Flow control keeps the sender from sending more data than the receiver can take.
+
+It's implemented by the receiver sending the receive window (available space in the queue) to the sender so the sender doesn't send more data than can fit in the queue, slowing it down
+
+Congestion control keeps the network from being overloaded
+
+Congestion control is implemented by the user increasing the data they send until they hit dropped packets or timeout, at which point the size of data they can send is cut in half, then the data they can send is increased slowly.

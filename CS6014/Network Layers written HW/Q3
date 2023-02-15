@@ -1,0 +1,31 @@
+
+    from A to X behind the NAT
+
+	source-> 10.0.0.1:port
+	dest-> 1.2.3.4:80
+	
+    from B to X behind the NAT
+
+	source-> 10.0.0.2:port
+	dest-> 1.2.3.4:80
+
+    from A to X between the NAT and X
+
+	source-> 5.6.7.8:NATport
+	dest-> 1.2.3.4:80
+
+    from B to X between the NAT and X
+
+	source-> 5.6.7.8:NATport
+	dest-> 1.2.3.4:80
+
+    from X to A between X and the NAT
+
+	source-> 1.2.3.4:80
+	dest-> 5.6.7.8:NATport
+
+    from X to A between the NAT and A
+
+	source-> 1.2.3.4:80
+	dest-> 5.6.7.8:NATport
+

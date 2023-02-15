@@ -1,0 +1,25 @@
+
+    How many subnets are a part of this network, and what is the smallest IP prefix (i.e. most fixed bits) that can be used to describe each one?
+
+
+6 subnets
+A:   1.1.1
+B:   1.1.2
+C:   1.1.3
+A-B: 1.1.4
+A-C: 1.1.5
+B-C: 1.1.6
+
+
+    If this network is somehow connected to the internet, what is the cheapest (i.e. smallest number of address) IP prefix the company could have purchased (without using NAT)?
+
+
+1.1
+
+
+    Assume the router for group A has 4 ports: port 1 is connected to the group subnet, port 2 is connected to router B, port 3 is connected to router C, and port D is connected to the ISP. Write out router A's forwarding table.
+
+port1 	1.1.1.0
+Port2 	1.1.2.0
+Port3	1.1.3.0
+Port4	1.1.4.0
