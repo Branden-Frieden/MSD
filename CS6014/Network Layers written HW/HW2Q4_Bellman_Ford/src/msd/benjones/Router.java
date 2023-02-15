@@ -14,27 +14,23 @@ public class Router {
     }
 
     public void onInit() throws InterruptedException {
-
-        //TODO: IMPLEMENT ME
         //As soon as the network is online,
         //fill in your initial distance table and broadcast it to your neighbors
 
-        for(Neighbor neighbor : Network.getNeighbors(this)){
-            neighbor.cost = (int) Double.POSITIVE_INFINITY;
+       for(Neighbor neighbor : Network.getNeighbors(this)){
+           distances.put(neighbor.router, neighbor.cost);
         }
-        for(Neighbor neighbor : Network.getNeighbors(this)){
-            Message message = new Message(this, neighbor.router, distances);
-            Network.sendDistanceMessage(message);
+        for(Router r: distances.keySet()){
+            Network.sendDistanceMessage(new Message(this, r, distances));
         }
-
     }
 
     public void onDistanceMessage(Message message) throws InterruptedException {
         //update your distance table and broadcast it to your neighbors if it changed
-        if(message.distances.get(message.sender) != distances.get(message.sender)){
-            distances.put(message.sender, message.distances.get(message.sender));
-            for(Neighbor neighbor : Network.getNeighbors(this)){
-                Message outMessage = new Message(this, neighbor.router, distances);
+        if(message.distances.get(this) != distances.get(message.sender)){
+            distances.put(message.sender, message.distances.get(this));
+            for(Router r: distances.keySet()){
+                Message outMessage = new Message(this, r, distances);
                 Network.sendDistanceMessage(outMessage);
             }
         }
