@@ -3,23 +3,24 @@
 
 
 6 subnets
-A:   1.1.1
+A:   1.1.1 
 B:   1.1.2
 C:   1.1.3
 A-B: 1.1.4
 A-C: 1.1.5
 B-C: 1.1.6
 
-
     If this network is somehow connected to the internet, what is the cheapest (i.e. smallest number of address) IP prefix the company could have purchased (without using NAT)?
 
-
-1.1
-
+00000001.00000001.00000 -> 21 bits
 
     Assume the router for group A has 4 ports: port 1 is connected to the group subnet, port 2 is connected to router B, port 3 is connected to router C, and port D is connected to the ISP. Write out router A's forwarding table.
 
-port1 	1.1.1.0
-Port2 	1.1.2.0
-Port3	1.1.3.0
-Port4	1.1.4.0
+Adress			Port
+1.1.1.0/24		1
+1.1.2.0/24		2
+1.1.3.0/24		3
+1.1.4.0			2
+1.1.5.0			3
+1.1.6.0			2 or 3
+destination(ISP)	4
