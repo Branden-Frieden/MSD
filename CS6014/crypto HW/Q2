@@ -1,0 +1,11 @@
+a.
+
+Even if the plaintext isn't deciphered, repeated blocks will result in the same cypher text, which can allow the eavesdropper to figure out the structure and patterns of the original text
+
+b.
+
+An attacker can change the message received by bob by altering a cypher block, though they won't be able to re-encrypt the change so they don't have perfect control about what gets received, only being able to make the data nonsensical. However, if they know the structure, they can target specific blocks that are important
+
+c.
+
+Using a stream cypher could mitigate this problem, as well as giving a hash function to ensure that the data received wasn't corrupted during transmission

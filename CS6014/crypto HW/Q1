@@ -1,0 +1,1 @@
+With only 8 bits you could just brute force it and try all 256 combinations in no time at all and compare them to the known plaintext to see if the guessed key is correct
