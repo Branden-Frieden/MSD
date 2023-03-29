@@ -150,7 +150,7 @@ public class Server {
 
         // get message from client
         byte[] messageFromClient = (byte[]) in.readObject();
-        byte[] stringFromClient = Shared.decrypt(Shared._clientMAC.getEncoded(), messageFromClient, Shared._clientIV.getIV(), Shared._clientEncrypt.getEncoded());
+        byte[] stringFromClient = Shared.decrypt(messageFromClient, Shared._clientIV.getIV(), Shared._clientEncrypt.getEncoded());
 
         for(int i = 0; i < stringFromClient.length; i++){
             System.out.print((char) stringFromClient[i]);

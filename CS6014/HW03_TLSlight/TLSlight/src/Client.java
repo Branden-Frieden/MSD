@@ -141,8 +141,8 @@ public class Client {
         byte[] messageFromServer = (byte[]) in.readObject();
         byte[] messageFromServer2 = (byte[]) in.readObject();
 
-        byte[] stringFromServer = Shared.decrypt(Shared._serverMAC.getEncoded(), messageFromServer, Shared._serverIV.getIV(), Shared._serverEncrypt.getEncoded());
-        byte[] stringFromServer2 = Shared.decrypt(Shared._serverMAC.getEncoded(), messageFromServer2, Shared._serverIV.getIV(), Shared._serverEncrypt.getEncoded());
+        byte[] stringFromServer = Shared.decrypt(messageFromServer, Shared._serverIV.getIV(), Shared._serverEncrypt.getEncoded());
+        byte[] stringFromServer2 = Shared.decrypt(messageFromServer2, Shared._serverIV.getIV(), Shared._serverEncrypt.getEncoded());
 
         for(int i = 0; i < stringFromServer.length; i++){
             System.out.print((char) stringFromServer[i]);

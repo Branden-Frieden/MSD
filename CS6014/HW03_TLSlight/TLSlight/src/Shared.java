@@ -111,7 +111,7 @@ public class Shared {
         return cipher.doFinal(finalMessageMac.toByteArray());
 
     }
-    public static byte[] decrypt(byte[] macType, byte[] messageArr, byte[] typeIV, byte[] typeOfEncrypt) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+    public static byte[] decrypt(byte[] messageArr, byte[] typeIV, byte[] typeOfEncrypt) throws NoSuchAlgorithmException, InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         IvParameterSpec ivParameterSpec = new IvParameterSpec(typeIV);
