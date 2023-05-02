@@ -1,0 +1,99 @@
+
+FORCEDENTRY: Sandbox Escape - Michael Johnson and Junming Jin
+
+What was the major security vulnerability in the described system (buffer overflow, code injection, susceptibility to denial of service, etc)?
+
+	code injection, functions in files (gifs) that shouldn't have them allows the NSPredicate to break out of the sandbox
+
+What was (at least) one thing the presenters did well in their talk
+
+	good explanation of what a sandbox environment is. And what it does
+
+What is one way they could improve their presentation
+
+	the presentation text was really small so I couldn't read it easily
+	a little more info on how the function passes itself out of the sandbox would be nice
+
+
+
+
+Android Messaging: A Few Bugs Short of a Chain - Howard Tung and Juisheng Hung
+
+What was the major security vulnerability in the described system (buffer overflow, code injection, susceptibility to denial of service, etc)?
+
+	directory traversal, the ability to access directories outside of the intended directory
+
+What was (at least) one thing the presenters did well in their talk
+
+	prevention methods were well explained and presented
+
+What is one way they could improve their presentation
+
+	go more into depth as to how the message can force the system to give them access to other directories
+
+
+
+Heartbleed - in-Ching Jeng and Chun-Hao Hsu
+What was the major security vulnerability in the described system (buffer overflow, code injection, susceptibility to denial of service, etc)?
+
+	buffer overflow? - the attacker can request more data than the proper amount and the server will send huge amounts of data, even leaking over to other data, because it doesn't check if the requested length is reasonable.
+
+What was (at least) one thing the presenters did well in their talk
+
+	the use of images and the pointer made following along really easy
+
+What is one way they could improve their presentation
+
+	maybe talk about how well the fix worked, or whether it is completely fixed now, how long it took to implement, are some systems still affected?
+
+
+
+Spoofing‌ ‌Named‌ ‌Pipe‌ ‌Client‌ ‌PID - Levi Neely and Jowie Tan
+
+What was the major security vulnerability in the described system (buffer overflow, code injection, susceptibility to denial of service, etc)?
+
+	code injection - lets the attacker take over the system and run processes as they see fit
+
+What was (at least) one thing the presenters did well in their talk
+
+	Very good explanation of what the pipes are and how they are used
+	Joke game is on point
+
+What is one way they could improve their presentation
+
+	explanation of how specifically the pipes PID gets leeked was vague
+	Showing the entire code was cool, but probably not necessary. I didn't feel that it really helped me understand any more
+
+
+
+Smart garage door vulnerabilities - Felix Ye and Whitney Kenner
+What was the major security vulnerability in the described system (buffer overflow, code injection, susceptibility to denial of service, etc)?
+
+	insecure password storage, improper hardcoding, improper input validation, 
+
+What was (at least) one thing the presenters did well in their talk
+
+	showing the steps through images on different slides made following along with the steps really easy. 
+	showing the code snippets that showed the vulnerability was interesting and helped se what they did.
+
+What is one way they could improve their presentation
+	going over so many vulnerabilities made it feel less focused, maybe pick one or two and focus more on those.
+
+
+
+Exploiting Null Dereferences in Linux - Reshma Raghavan and Ricardo Sanchezyepez
+What was the major security vulnerability in the described system (buffer overflow, code injection, susceptibility to denial of service, etc)?
+
+	code injection, buffer overflow
+
+What was (at least) one thing the presenters did well in their talk
+
+	I liked how it went through exactly which exploits were used to create the full vulnerability.
+	
+
+What is one way they could improve their presentation
+
+	following the code between slides got somewhat confusing and hard to follow, maybe try to show the code in fewer slides
+
+
+
