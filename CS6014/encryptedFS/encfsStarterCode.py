@@ -149,6 +149,23 @@ class EncFS(Operations):
                                                          'st_uid'))
 
         '''TODO FINISH ME TO UPDATE THE st_size field to the size of the unencrypted content'''
+
+        if os.path.exists(path) and not os.path.isdir(path):
+            print('path exists')
+            with open(self._full_path(path), "rb") as file:
+                salt = file.read(16)
+                kdf = PBKDF2HMAC(
+                    algorithm=hashes.SHA256(),
+                    length=32,
+                    salt=salt,
+                    iterations=480000
+                )
+                key = base64.urlsafe_b64encode(kdf.derive(bytes(self.password, 'utf-8')))
+                f = Fernet(key)
+                decrypted = f.decrypt(file.read())
+                props['st_size'] = len(decrypted)
+                file.close()
+
         return props
 
     @logged
@@ -386,8 +403,6 @@ class EncFS(Operations):
         self.openFiles[fh] = buf
         return len(buf)
 
-
-
     @logged
     def truncate(self, path, length, fh=None):
         """Truncate a file.
@@ -398,8 +413,6 @@ class EncFS(Operations):
 
         """
         os.truncate(self._full_path(path), length)
-
-
 
     # skip
     '''

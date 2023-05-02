@@ -1,0 +1,13 @@
+1) strong scaling
+
+The time went down with the first few added threads, but then tapered off as I added more due to the overhead of creating threads vs the time saving. I went with huge arrays (from 100000 to 400000) but if I tested on smaller arrays, the time saved would be less for each thread, and for small enough arrays (a few thousand elements), time actually went up with each new thread due to the overhead of creating arrays.
+
+2) weak scaling
+
+The curve increases as threads increase, so the function isn't ideal, though the omp1 case is fairly good compared to the other 2. This might be caused by the overhead to create threads and sum their partial sums together, but more likely there is some imperfection in the parallelization.
+
+3)
+
+parallel_sum_omp1 performed the best in both tests, getting the lowest time for most if not all thread counts. Omp seems to be faster than just manually making threads and atomically summing them, which makes sense since the people who made OpenMP are probably much better at multithreading than I am.
+
+I was surprised that omp1 beat the parallel reduction. Maybe my code was incorrect and caused a slowdown, or having the compiler figure out the best way to break up the loop isn't the most efficient way to go about it.
