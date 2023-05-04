@@ -148,8 +148,6 @@ class EncFS(Operations):
                                                          'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size',
                                                          'st_uid'))
 
-        '''TODO FINISH ME TO UPDATE THE st_size field to the size of the unencrypted content'''
-
         if os.path.exists(path) and not os.path.isdir(path):
             print('path exists')
             with open(self._full_path(path), "rb") as file:
@@ -369,7 +367,7 @@ class EncFS(Operations):
     def create(self, path, mode, fi=None):
         full_path = self._full_path(path)
         if not os.path.isfile(full_path):
-            with open(full_path, 'w') as file:
+            with open(full_path, 'w+b') as file:
                 self.fdCounter += 1
                 self.openFiles[self.fdCounter] = file
                 file.close()
@@ -398,9 +396,7 @@ class EncFS(Operations):
         """Write to a file.
 
         """
-
-        file = self.openFiles.get(fh)
-        self.openFiles[fh] = buf
+        self.openFiles[fh] = self.openFiles[fh][:offset] + buf  # + self.openFiles[fh][offset + len(buf):]
         return len(buf)
 
     @logged
@@ -412,7 +408,10 @@ class EncFS(Operations):
         filesystems, because recreating a file will first truncate it.
 
         """
-        os.truncate(self._full_path(path), length)
+        if fh == None:
+            os.truncate(self._full_path(path), length)
+        else:
+            self.openFiles[fh] = self.openFiles[fh][:length]
 
     # skip
     '''
@@ -461,10 +460,13 @@ class EncFS(Operations):
         encrypted = f.encrypt(file)
 
         # add data to file
-        encryptedFile = os.open(self._full_path(path), os.O_WRONLY | os.O_CREAT)
-        os.write(encryptedFile, salt + encrypted)
+        with open(self._full_path(path), 'w+b') as encryptedFile:
+            # os.write(encryptedFile, salt + encrypted)
+            encryptedFile.write(salt + encrypted)
+            encryptedFile.close()
 
-        os.close(encryptedFile)
+        while not encryptedFile.closed:
+            continue
 
         # remove from dictionary
         self.openFiles.pop(fh)
