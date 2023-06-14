@@ -1,0 +1,99 @@
+
+Part 2)
+
+CREATE Table carInventory ( VIN varchar(255), make varchar(255), model varchar(255), year integer, color varchar(255), PRIMARY KEY (VIN) );
+
+CREATE TABLE SalesPeople(
+    -> SSN integer,
+    -> name varchar(255),
+    -> PRIMARY KEY (SSN)
+    -> );
+
+CREATE TABLE Assignments( VIN varchar(255), SSN integer, PRIMARY KEY (VIN, SSN), FOREIGN KEY(SSN) References SalesPeople, FOREIGN KEY(VIN) References carInventory);
+
+Insert Into carInventory VALUES ('JH4DA3350HS000229', 'Toyota', 'Tacoma', '2008', 'Red');
+Insert Into carInventory VALUES ('JM3ER293490222369 ', 'Toyota', 'Tacoma', '1999', 'Green'); 
+Insert Into carInventory VALUES ('JH4DA9350LS003644', 'Tesla', 'Model 3', '2018', 'White');
+Insert Into carInventory VALUES ('1FVACWCSX4HM74500', 'Subaru', 'WRX', '2016', 'Blue');
+Insert Into carInventory VALUES ('JH4KA3140KC015221', 'Ford', 'F150', '2004', 'Red');
+
+Insert Into SalesPeople VALUES ('210919203', 'Arnold');
+Insert Into SalesPeople VALUES ('203970239', 'Hannah');
+Insert Into SalesPeople VALUES ('092348080', 'Steve');
+
+Insert Into Assignments VALUES ('JH4DA3350HS000229', '210919203');
+Insert Into Assignments VALUES ('JM3ER293490222369', '210919203');
+Insert Into Assignments VALUES ('JH4DA3350HS000229', '203970239');
+Insert Into Assignments VALUES ('JH4KA3140KC015221', '203970239');
+Insert Into Assignments VALUES ('JH4DA9350LS003644', '092348080');
+
+
+
+
+
+Part 3)
+
+
+select Title from Titles where Author = '<Author>';
+
+select Serial from Inventory Natural Join Titles where Author = '<Author>';
+
+select Title from Titles natural join Inventory natural join CheckedOut natural join Patrons where Name= '<Patron Name>';
+
+select Phone from Phones where CardNum in (select CardNum from CheckedOut natural join Inventory natural join Titles where Title = '<Title>');
+
+
+
+
+
+
+
+
+
+Part 4)
+
+select Title from Titles natural join Inventory ORDER BY Serial LIMIT <N>;
+
+select Name from Patrons natural join CheckedOut order by Serial DESC Limit 1;
+
+select Phone from Phones natural join Patrons where CardNum not in (select CardNum from CheckedOut);
+
+select DISTINCT Title, ISBN from Titles natural join Inventory;
+
+
+
+
+
+
+
+
+
+Part 5)
+
+select Name from Players where Elo > 2850;
+
+select Name from Players join Games where WhitePlayer = pID;
+
+select Name from Players join Games where WhitePlayer = pID AND Result = 'W';
+
+select DISTINCT Name from Players where pID in(select BlackPlayer from Games natural join Events where Date = 2018 UNION select WhitePlayer from Games natural join Events where Date = 2018);
+
+select Name, Date from Events where eID IN(select eID from Games where (WhitePlayer = (select pID from Players where Name = "Carlsen, Magnus") AND Result = 'B') UNION select eID from Games where (BlackPlayer = (select pID from Players where Name = "Carlsen, Magnus") AND Result = 'W'));
+
+select Name from Players where pID IN(select WhitePlayer from Games where BlackPlayer = (select pID from Players where Name="Carlsen, Magnus") UNION select BlackPlayer from Games where WhitePlayer = (select pID from Players where Name="Carlsen, Magnus"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

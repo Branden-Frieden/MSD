@@ -63,6 +63,8 @@ JH4DA9350LS003644	Tesla 				Model 3 	2018	White
 JH4KA3140KC015221	Ford 				F150		2004	Red
 
 
+
+
 SalesPeople:
 
 __SSN__            |       Name
@@ -70,6 +72,9 @@ __SSN__            |       Name
 210919203		Arnold
 203970239		Hannah
 092348080		Steve
+
+
+
 
 
 Assignments:
@@ -81,6 +86,11 @@ JM3ER293490222369  	210919203
 JH4DA3350HS000229	203970239
 JH4KA3140KC015221	203970239
 JH4DA9350LS003644	092348080
+
+
+
+Insert Into Assignments VALUES ('JH4DA9350LS003644', '092348080');
+
 
 
 PART 4:
