@@ -1,0 +1,16 @@
+select Name from Patrons natural join CheckedOut group by CardNum order by COUNT(*) desc limit 1;
+
+select Title from Titles where Author LIKE 'K%';
+
+select Author from Titles group by Author Having count(*) >= 2;
+
+select Author from Titles natural join Inventory group by Author Having count(*) >=2;
+
+
+select Patrons.Name, c.numBooks, case 
+when c.numBooks > 2 then 'Platinum' 
+when c.numBooks = 2 then 'Gold' 
+when c.numBooks = 1 then 'Silver' 
+else 'Bronze' 
+end as level 
+from Patrons LEFT JOIN (SELECT Name, COUNT(*) AS numBooks FROM CheckedOut NATURAL JOIN Patrons GROUP BY Name) AS c on Patrons.Name = c.Name;
