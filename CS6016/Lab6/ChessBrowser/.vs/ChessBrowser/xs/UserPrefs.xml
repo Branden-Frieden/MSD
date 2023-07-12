@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{3E777F89-D589-45CC-A14B-354E44A187FA}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ChessBrowser PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ChessBrowser/Queries.cs">
+    <Files>
+      <File FileName="ChessBrowser/Queries.cs" Line="173" Column="48" />
+      <File FileName="ChessBrowser/MainPage.xaml.cs" Line="64" Column="1" />
+      <File FileName="ChessBrowser/parsePGN.cs" Line="49" Column="64" />
+      <File FileName="../../../../../../../usr/local/share/dotnet/packs/Microsoft.MacCatalyst.Sdk/16.4.7067/tools/msbuild/iOS/Xamarin.Shared.targets" />
+      <File FileName="ChessBrowser/App.xaml.cs" />
+      <File FileName="ChessBrowser/App.xaml" />
+      <File FileName="ChessBrowser/ChessGame.cs" />
+      <File FileName="ChessBrowser/MainPage.xaml" Line="127" Column="45" />
+      <File FileName="ChessBrowser/MauiProgram.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ChessBrowser" expanded="True">
+            <Node name="ChessBrowser">
+              <Node name="MainPage.xaml" expanded="True" />
+              <Node name="Queries.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
