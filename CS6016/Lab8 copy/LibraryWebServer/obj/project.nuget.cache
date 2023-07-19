@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "607tLJAtasS2cZ20WNniU0pIc+F/vygZmegiX6g10Qd9rxrbBX4DL2+RpRCOe+2pnTZqEfUCq/DMbpAIsprTKQ==",
+  "dgSpecHash": "XyErVQkQ5OfSRq5Xh8PFG46kem7wwAbbcAm3hqj1sHNT4Sa42HzrylVBSgcE77tELxjMOJX2x7fV4BKMqlliPA==",
   "success": true,
-  "projectFilePath": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8/LibraryWebServer/LibraryWebServer.csproj",
+  "projectFilePath": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8 copy/LibraryWebServer/LibraryWebServer.csproj",
   "expectedPackageFiles": [
     "/Users/brandenfrieden/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/brandenfrieden/.nuget/packages/microsoft.entityframeworkcore/7.0.9/microsoft.entityframeworkcore.7.0.9.nupkg.sha512",

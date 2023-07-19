@@ -991,11 +991,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8/LibraryWebServer/LibraryWebServer.csproj",
+      "projectUniqueName": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8 copy/LibraryWebServer/LibraryWebServer.csproj",
       "projectName": "LibraryWebServer",
-      "projectPath": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8/LibraryWebServer/LibraryWebServer.csproj",
+      "projectPath": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8 copy/LibraryWebServer/LibraryWebServer.csproj",
       "packagesPath": "/Users/brandenfrieden/.nuget/packages/",
-      "outputPath": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8/LibraryWebServer/obj/",
+      "outputPath": "/Users/brandenfrieden/MSD/myGithubRepo/CS6016/Lab8 copy/LibraryWebServer/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/brandenfrieden/.nuget/NuGet/NuGet.Config"
