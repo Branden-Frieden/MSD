@@ -1,0 +1,55 @@
+Part 1 - Selecting Indexes
+
+INDEX( Start Date, End Date)
+
+INDEX( Grade )
+
+INDEX( Class Name, Grade )
+
+
+Queries on the chess database:
+
+INDEX( Players.ELO )
+
+INDEX( Games.WhitePlayer )
+
+
+Queries on the public Library database:
+
+INDEX( CheckedOut.Serial )
+
+
+More library queries:
+
+INDEX( CheckedOut.Serial )
+
+INDEX( CheckedOut.CardNum )
+
+
+Still more library queries:
+
+INDEX( Titles.Title )
+
+
+
+Part 2 - B+ Tree Index Structures
+
+372 rows
+
+1024
+
+1025 * 372 = 381,300
+
+1
+
+292
+
+Another table:
+
+48
+
+1
+
+
+
+
