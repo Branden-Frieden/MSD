@@ -60,8 +60,7 @@ namespace LMS.Controllers
                         {
                             subject = d.Subject,
                             dname = d.Name,
-                            courses = from c in db.Courses
-                                      select new { number = c.Number, cname = c.Name }
+                            courses = d.Courses.Select(c => new { number = c.Number, cname = c.Name }).ToList()
                         };
 
 
@@ -86,8 +85,9 @@ namespace LMS.Controllers
         {
 
             var query = from c in db.Classes
-                        where c.ListingNavigation.Number == number
-
+                        where
+                        c.ListingNavigation.Number == number &&
+                        c.ListingNavigation.Department == subject
                         select new
                         {
                             season = c.Season,

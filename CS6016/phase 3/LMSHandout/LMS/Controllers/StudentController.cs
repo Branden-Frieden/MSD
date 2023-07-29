@@ -110,20 +110,18 @@ namespace LMS.Controllers
         /// <returns>The JSON array</returns>
         public IActionResult GetAssignmentsInClass(string subject, int num, string season, int year, string uid)
         {
-
-            var query = from s in db.Submissions
+            var query = from a in db.Assignments
                         where
-                        s.Student == uid &&
-                        s.AssignmentNavigation.CategoryNavigation.InClassNavigation.Year == year &&
-                        s.AssignmentNavigation.CategoryNavigation.InClassNavigation.Season == season &&
-                        s.AssignmentNavigation.CategoryNavigation.InClassNavigation.ListingNavigation.Number == num &&
-                        s.AssignmentNavigation.CategoryNavigation.InClassNavigation.ListingNavigation.Department == subject
+                        a.CategoryNavigation.InClassNavigation.Year == year &&
+                        a.CategoryNavigation.InClassNavigation.Season == season &&
+                        a.CategoryNavigation.InClassNavigation.ListingNavigation.Number == num &&
+                        a.CategoryNavigation.InClassNavigation.ListingNavigation.Department == subject
                         select new
                         {
-                            aname = s.AssignmentNavigation.Name,
-                            cname = s.AssignmentNavigation.CategoryNavigation.Name,
-                            due = s.AssignmentNavigation.Due,
-                            score = s.Score
+                            aname = a.Name,
+                            cname = a.CategoryNavigation.Name,
+                            due = a.Due,
+                            score = a.Submissions.Any() ? (uint?)a.Submissions.FirstOrDefault().Score : null
                         };
 
             return Json(query.ToArray());
@@ -189,6 +187,9 @@ namespace LMS.Controllers
                 s.SubmissionContents = contents;
                 s.Time = DateTime.Now;
 
+                db.Submissions.Add(s);
+                db.SaveChanges();
+
                 return Json(new { success = true });
 
             }
@@ -238,6 +239,9 @@ namespace LMS.Controllers
                 e.Student = uid;
                 e.Class = cl.ClassId;
                 e.Grade = "--";
+
+                db.Enrolleds.Add(e);
+                db.SaveChanges();
 
                 return Json(new { success = true });
             }

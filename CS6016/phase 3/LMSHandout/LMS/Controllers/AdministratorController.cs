@@ -197,9 +197,11 @@ namespace LMS.Controllers
                                 (cl.StartTime < TimeOnly.FromDateTime(end) || cl.EndTime > TimeOnly.FromDateTime(start))
                                 select cl;
 
-                if (conflicts.Any())
-                    return Json(new { success = false });
-
+                foreach (var conflict in conflicts)
+                {
+                    if(conflict.Year == year && conflict.Season == season)
+                        return Json(new { success = false });
+                }
                 // check for semester couse conflicts
                 conflicts = from cl in db.Classes
                             where
