@@ -157,6 +157,27 @@ namespace LMS_CustomIdentity.Controllers
         public IActionResult GetAssignmentsInCategory(string subject, int num, string season, int year, string category)
         {
 
+            if(category == null)
+            {
+                var query2 = from a in db.Assignments
+                            where
+                            a.CategoryNavigation.InClassNavigation.Year == year &&
+                            a.CategoryNavigation.InClassNavigation.Season == season &&
+                            a.CategoryNavigation.InClassNavigation.ListingNavigation.Number == num &&
+                            a.CategoryNavigation.InClassNavigation.ListingNavigation.DepartmentNavigation.Subject == subject
+                            select new
+                            {
+                                aname = a.Name,
+                                cname = a.CategoryNavigation.Name,
+                                due = a.Due,
+                                submissions = a.Submissions.Count()
+                            };
+
+                return Json(query2.ToArray());
+            }
+
+
+
             var query = from a in db.Assignments
                         where
                         a.CategoryNavigation.Name == category &&
@@ -261,8 +282,10 @@ namespace LMS_CustomIdentity.Controllers
                              cat.InClass == e.Class
                              select cat).ToList();
 
-            double[] grades = { };
-            double[] weights = { };
+            List<double> grades = new List<double>();
+            List<double> weights = new List<double>();
+
+            double grade = 0;
 
             foreach (var c in categories)
             {
@@ -270,7 +293,13 @@ namespace LMS_CustomIdentity.Controllers
                 double points = 0.0;
                 double maxPoints = 0.0;
 
-                foreach(var a in c.Assignments.ToList())
+                var assignments = (from assignment in db.Assignments
+                                  where
+                                  assignment.CategoryNavigation.InClass == e.Class &&
+                                  assignment.Category == c.CategoryId
+                                  select assignment).ToList();
+
+                foreach(var a in assignments)
                 {
 
                     var sub = (from s in db.Submissions
@@ -283,13 +312,17 @@ namespace LMS_CustomIdentity.Controllers
                     points += sub.Any() ? sub.FirstOrDefault().Score: 0;
 
                 }
-                grades.Append((points / maxPoints) * c.Weight);
-                weights.Append(c.Weight);
+                if (maxPoints == 0)
+                    continue;
+                grades.Add((points / maxPoints));
+                weights.Add(c.Weight);
             }
 
-            double scalingFactor = 100 / weights.Sum();
-
-            double grade = grades.Sum() * scalingFactor;
+            for(int i = 0; i < grades.Count; i++)
+            {
+                double scalingFactor = weights.Sum() / weights[i];
+                grade += grades[i] * scalingFactor;
+            }
 
 
 

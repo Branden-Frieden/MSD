@@ -126,7 +126,7 @@ namespace LMS.Controllers
                          && a.CategoryNavigation.InClassNavigation.ListingNavigation.Department == subject
                          select a.Contents;
 
-            return Content(query.ToString());
+            return Content(query.FirstOrDefault().ToString());
         }
 
 
@@ -157,7 +157,7 @@ namespace LMS.Controllers
                         s.AssignmentNavigation.CategoryNavigation.InClassNavigation.ListingNavigation.Department == subject
                         select s.SubmissionContents;
 
-            return Content(query.ToString());
+            return Content(query.FirstOrDefault().ToString());
         }
 
 
