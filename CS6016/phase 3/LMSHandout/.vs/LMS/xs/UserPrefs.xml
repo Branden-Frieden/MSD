@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{F7779DCA-6458-4556-ABC4-E8D6A159851E}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../.microsoft/usersecrets/41584a40-6ee0-45ec-8d07-9675f843860e/secrets.json">
+    <Files>
+      <File FileName="LMS/Controllers/CommonController.cs" />
+      <File FileName="LMS/Controllers/ProfessorController.cs" Line="410" Column="45" />
+      <File FileName="LMS/Controllers/StudentController.cs" />
+      <File FileName="LMS/Program.cs" Line="10" Column="1" />
+      <File FileName="LMS/Views/Professor/Categories.cshtml" />
+      <File FileName="LMS/LMS.csproj" Line="15" Column="19" />
+      <File FileName="../../../../../.microsoft/usersecrets/41584a40-6ee0-45ec-8d07-9675f843860e/secrets.json" Line="4" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LMS" expanded="True">
+            <Node name="LMS" selected="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.LMS PreferredExecutionTarget="/Applications/Firefox.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

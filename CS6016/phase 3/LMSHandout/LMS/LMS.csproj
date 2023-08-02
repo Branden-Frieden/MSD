@@ -7,6 +7,13 @@
     <UserSecretsId>41584a40-6ee0-45ec-8d07-9675f843860e</UserSecretsId>
   </PropertyGroup>
 
+    <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ContainerImageName>LMS-docker-image</ContainerImageName>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
@@ -27,5 +34,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.NET.Build.Containers" Version="7.0.306" />
   </ItemGroup>
 </Project>
